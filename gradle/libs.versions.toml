@@ -1,0 +1,19 @@
+[versions]
+kotlin = "2.3.0"
+kotlinx-serialization = "1.10.0-RC"
+jda = "6.2.0"
+
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+
+[libraries]
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+jda = { group = "net.dv8tion", name = "JDA", version.ref = "jda" }
+
+
+
+[bundles]
