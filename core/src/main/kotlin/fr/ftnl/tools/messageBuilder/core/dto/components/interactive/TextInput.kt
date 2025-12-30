@@ -17,7 +17,6 @@ data class TextInput(
     val required: Boolean = true,
     val value: String? = null,
     val placeholder: String? = null
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent,
-    fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, ActionRowChildComponent, SectionChildComponent {
     override val type: Int = 4
 }

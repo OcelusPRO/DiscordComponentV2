@@ -11,6 +11,6 @@ data class FileUpload(
     @SerialName("min_values") val minValues: Int = 1,
     @SerialName("max_values") val maxValues: Int = 10,
     val required: Boolean = true
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent {
+) : DiscordComponent {
     override val type: Int = 19
 }

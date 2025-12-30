@@ -7,10 +7,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FileComponent(
     override val id: Int? = null,
-    val file: fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem,
+    val file: UnfurledMediaItem,
     val spoiler: Boolean = false,
     val name: String? = null,
     val size: Int? = null
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 13
 }

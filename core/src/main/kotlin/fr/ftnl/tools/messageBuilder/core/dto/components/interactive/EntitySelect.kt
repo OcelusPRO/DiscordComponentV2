@@ -6,14 +6,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-abstract class BaseEntitySelect : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+abstract class BaseEntitySelect : DiscordComponent, ContainerChildComponent {
     abstract val customId: String
     abstract val placeholder: String?
     abstract val minValues: Int
     abstract val maxValues: Int
     abstract val disabled: Boolean
     abstract val required: Boolean
-    @SerialName("default_values") abstract val defaultValues: List<fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue>?
+    @SerialName("default_values") abstract val defaultValues: List<SelectDefaultValue>?
     
 }
 
@@ -26,8 +26,8 @@ data class UserSelect(
     @SerialName("max_values") override val maxValues: Int = 1,
     override val disabled: Boolean = false,
     override val required: Boolean = true,
-    @SerialName("default_values") override val defaultValues: List<fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue>? = null
-) : fr.ftnl.tools.messageBuilder.core.dto.components.interactive.BaseEntitySelect() {
+    @SerialName("default_values") override val defaultValues: List<SelectDefaultValue>? = null
+) : BaseEntitySelect() {
     override val type: Int = 5
 }
 
@@ -40,8 +40,8 @@ data class RoleSelect(
     @SerialName("max_values") override val maxValues: Int = 1,
     override val disabled: Boolean = false,
     override val required: Boolean = true,
-    @SerialName("default_values") override val defaultValues: List<fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue>? = null
-) : fr.ftnl.tools.messageBuilder.core.dto.components.interactive.BaseEntitySelect() {
+    @SerialName("default_values") override val defaultValues: List<SelectDefaultValue>? = null
+) : BaseEntitySelect() {
     override val type: Int = 6
 }
 
@@ -54,8 +54,8 @@ data class MentionableSelect(
     @SerialName("max_values") override val maxValues: Int = 1,
     override val disabled: Boolean = false,
     override val required: Boolean = true,
-    @SerialName("default_values") override val defaultValues: List<fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue>? = null
-) : fr.ftnl.tools.messageBuilder.core.dto.components.interactive.BaseEntitySelect() {
+    @SerialName("default_values") override val defaultValues: List<SelectDefaultValue>? = null
+) : BaseEntitySelect() {
     override val type: Int = 7
 }
 
@@ -69,8 +69,8 @@ data class ChannelSelect(
     @SerialName("max_values") override val maxValues: Int = 1,
     override val disabled: Boolean = false,
     override val required: Boolean = true,
-    @SerialName("default_values") override val defaultValues: List<fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue>? = null
-) : fr.ftnl.tools.messageBuilder.core.dto.components.interactive.BaseEntitySelect() {
+    @SerialName("default_values") override val defaultValues: List<SelectDefaultValue>? = null
+) : BaseEntitySelect() {
     override val type: Int = 8
 }
 

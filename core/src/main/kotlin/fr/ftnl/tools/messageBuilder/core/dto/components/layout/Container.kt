@@ -10,10 +10,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Container(
     override val id: Int? = null,
-    val components: List<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent>,
-    @Serializable(with = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.serializers.ColorHexSerializer::class)
+    val components: List<DiscordComponent>,
+    @Serializable(with = ColorHexSerializer::class)
     @SerialName("accent_color") val accentColor: Int? = null, // RGB int 0x000000
     val spoiler: Boolean = false
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 17
 }

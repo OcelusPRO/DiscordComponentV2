@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ActionRow(
     override val id: Int? = null,
-    val components: List<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent> // Boutons ou un seul Select
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+    val components: List<DiscordComponent> // Boutons ou un seul Select
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 1
 }

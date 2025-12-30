@@ -8,10 +8,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Thumbnail(
     override val id: Int? = null,
-    val media: fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem,
+    val media: UnfurledMediaItem,
     val description: String? = null,
     val spoiler: Boolean = false
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent,
-    fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, SectionChildComponent {
     override val type: Int = 11
 }

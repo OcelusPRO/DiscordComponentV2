@@ -9,14 +9,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MediaGallery(
     override val id: Int? = null,
-    val items: List<fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGalleryItem>
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+    val items: List<MediaGalleryItem>
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 12
 }
 
 @Serializable
 data class MediaGalleryItem(
-    val media: fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem,
+    val media: UnfurledMediaItem,
     val description: String? = null,
     val spoiler: Boolean = false
 )

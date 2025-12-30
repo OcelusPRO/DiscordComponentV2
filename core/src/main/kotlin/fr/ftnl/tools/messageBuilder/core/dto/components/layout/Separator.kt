@@ -9,6 +9,6 @@ data class Separator(
     override val id: Int? = null,
     val divider: Boolean = true,
     val spacing: Int = 1 // 1 (small) ou 2 (large)
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 14
 }

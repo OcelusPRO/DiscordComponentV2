@@ -28,7 +28,7 @@ internal object ColorHexSerializer : KSerializer<Int?> {
     override fun serialize(encoder: Encoder, value: Int?) {
         if (value == null) encoder.encodeNull()
         else {
-            val formattedString = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.serializers.formatHexColor(value)
+            val formattedString = formatHexColor(value)
             encoder.encodeString(formattedString)
         }
     }

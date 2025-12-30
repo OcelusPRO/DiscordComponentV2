@@ -11,8 +11,8 @@ annotation class ComponentDsl
  * Entry point for the Discord Component DSL.
  * Returns a list of constructed components.
  */
-fun discordComponent(block: fr.ftnl.tools.messageBuilder.core.dsl.components.RootComponentBuilder.() -> Unit): List<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent> {
-    val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.RootComponentBuilder()
+fun discordComponent(block: RootComponentBuilder.() -> Unit): List<DiscordComponent> {
+    val builder = RootComponentBuilder()
     builder.block()
     return builder.build()
 }
@@ -23,113 +23,112 @@ interface SectionContext
 interface ActionRowContext
 interface RootContext
 
-@fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
+@ComponentDsl
 open class BaseComponentBuilder {
-    protected val components = mutableListOf<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent>()
+    protected val components = mutableListOf<DiscordComponent>()
 
-    protected fun <T : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent> add(component: T) {
+    protected fun <T : DiscordComponent> add(component: T) {
         components.add(component)
     }
 }
 
-@fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
-class RootComponentBuilder : fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder(), fr.ftnl.tools.messageBuilder.core.dsl.components.RootContext,
-                             fr.ftnl.tools.messageBuilder.core.dsl.components.ContainerContext {
+@ComponentDsl
+class RootComponentBuilder : BaseComponentBuilder(), RootContext, ContainerContext {
 
-    fun container(block: fr.ftnl.tools.messageBuilder.core.dsl.components.ContainerBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.ContainerBuilder()
+    fun container(block: ContainerBuilder.() -> Unit) {
+        val builder = ContainerBuilder()
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun text(block: fr.ftnl.tools.messageBuilder.core.dsl.components.TextBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.TextBuilder()
+    fun text(block: TextBuilder.() -> Unit) {
+        val builder = TextBuilder()
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun actionRow(block: fr.ftnl.tools.messageBuilder.core.dsl.components.ActionRowBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.ActionRowBuilder()
+    fun actionRow(block: ActionRowBuilder.() -> Unit) {
+        val builder = ActionRowBuilder()
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun section(accessory: fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, block: fr.ftnl.tools.messageBuilder.core.dsl.components.SectionBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.SectionBuilder(accessory)
+    fun section(accessory: DiscordComponent, block: SectionBuilder.() -> Unit) {
+        val builder = SectionBuilder(accessory)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
     // Overload for section with DSL for accessory
-    fun section(accessoryBlock: fr.ftnl.tools.messageBuilder.core.dsl.components.SectionAccessoryBuilder.() -> Unit, block: fr.ftnl.tools.messageBuilder.core.dsl.components.SectionBuilder.() -> Unit) {
-        val accessoryBuilder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.SectionAccessoryBuilder()
+    fun section(accessoryBlock: SectionAccessoryBuilder.() -> Unit, block: SectionBuilder.() -> Unit) {
+        val accessoryBuilder = SectionAccessoryBuilder()
         accessoryBuilder.accessoryBlock()
         val accessory = accessoryBuilder.build() ?: throw IllegalStateException("Section accessory must be defined")
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.SectionBuilder(accessory)
+        val builder = SectionBuilder(accessory)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun button(style: Int, block: fr.ftnl.tools.messageBuilder.core.dsl.components.ButtonBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.ButtonBuilder(style)
+    fun button(style: Int, block: ButtonBuilder.() -> Unit) {
+        val builder = ButtonBuilder(style)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun stringSelect(customId: String, block: fr.ftnl.tools.messageBuilder.core.dsl.components.StringSelectBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.StringSelectBuilder(customId)
+    fun stringSelect(customId: String, block: StringSelectBuilder.() -> Unit) {
+        val builder = StringSelectBuilder(customId)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun userSelect(customId: String, block: fr.ftnl.tools.messageBuilder.core.dsl.components.UserSelectBuilder.() -> Unit = {}) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.UserSelectBuilder(customId)
+    fun userSelect(customId: String, block: UserSelectBuilder.() -> Unit = {}) {
+        val builder = UserSelectBuilder(customId)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun roleSelect(customId: String, block: fr.ftnl.tools.messageBuilder.core.dsl.components.RoleSelectBuilder.() -> Unit = {}) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.RoleSelectBuilder(customId)
+    fun roleSelect(customId: String, block: RoleSelectBuilder.() -> Unit = {}) {
+        val builder = RoleSelectBuilder(customId)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun mentionableSelect(customId: String, block: fr.ftnl.tools.messageBuilder.core.dsl.components.MentionableSelectBuilder.() -> Unit = {}) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.MentionableSelectBuilder(customId)
+    fun mentionableSelect(customId: String, block: MentionableSelectBuilder.() -> Unit = {}) {
+        val builder = MentionableSelectBuilder(customId)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun channelSelect(customId: String, block: fr.ftnl.tools.messageBuilder.core.dsl.components.ChannelSelectBuilder.() -> Unit = {}) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.ChannelSelectBuilder(customId)
+    fun channelSelect(customId: String, block: ChannelSelectBuilder.() -> Unit = {}) {
+        val builder = ChannelSelectBuilder(customId)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun textInput(customId: String, style: Int, block: fr.ftnl.tools.messageBuilder.core.dsl.components.TextInputBuilder.() -> Unit = {}) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.TextInputBuilder(customId, style)
+    fun textInput(customId: String, style: Int, block: TextInputBuilder.() -> Unit = {}) {
+        val builder = TextInputBuilder(customId, style)
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
     fun separator(spacing: Int = 1, divider: Boolean = true) {
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(
-            _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dto.components.layout.Separator(
+        add(
+            Separator(
                 divider = divider,
                 spacing = spacing
             )
         )
     }
 
-    fun mediaGallery(block: fr.ftnl.tools.messageBuilder.core.dsl.components.MediaGalleryBuilder.() -> Unit) {
-        val builder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.MediaGalleryBuilder()
+    fun mediaGallery(block: MediaGalleryBuilder.() -> Unit) {
+        val builder = MediaGalleryBuilder()
         builder.block()
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(builder.build())
+        add(builder.build())
     }
 
-    fun label(label: String, component: fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, description: String? = null) {
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(
-            _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dto.components.layout.Label(
+    fun label(label: String, component: DiscordComponent, description: String? = null) {
+        add(
+            Label(
                 label = label,
                 component = component,
                 description = description
@@ -138,12 +137,12 @@ class RootComponentBuilder : fr.ftnl.tools.messageBuilder.core.dsl.components.Ba
     }
 
     // Overload for label with DSL for component
-    fun label(label: String, description: String? = null, componentBlock: fr.ftnl.tools.messageBuilder.core.dsl.components.LabelComponentBuilder.() -> Unit) {
-        val componentBuilder = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.LabelComponentBuilder()
+    fun label(label: String, description: String? = null, componentBlock: LabelComponentBuilder.() -> Unit) {
+        val componentBuilder = LabelComponentBuilder()
         componentBuilder.componentBlock()
         val component = componentBuilder.build() ?: throw IllegalStateException("Label component must be defined")
-        _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.add(
-            _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dto.components.layout.Label(
+        add(
+            Label(
                 label = label,
                 component = component,
                 description = description
@@ -151,5 +150,5 @@ class RootComponentBuilder : fr.ftnl.tools.messageBuilder.core.dsl.components.Ba
         )
     }
 
-    fun build(): List<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent> = _root_ide_package_.fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder.components
+    fun build(): List<DiscordComponent> = components
 }

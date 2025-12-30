@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Section(
     override val id: Int? = null,
-    val components: List<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent>,
-    val accessory: fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent {
+    val components: List<DiscordComponent>,
+    val accessory: DiscordComponent
+) : DiscordComponent, ContainerChildComponent {
     override val type: Int = 9
 }

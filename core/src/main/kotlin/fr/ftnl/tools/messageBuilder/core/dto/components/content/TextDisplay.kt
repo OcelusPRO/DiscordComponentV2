@@ -10,7 +10,6 @@ import kotlinx.serialization.Serializable
 data class TextDisplay(
     override val id: Int? = null,
     val content: String
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent,
-    fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, SectionChildComponent {
     override val type: Int = 10
 }

@@ -8,7 +8,7 @@ data class Label(
     override val id: Int? = null,
     val label: String,
     val description: String? = null,
-    val component: fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent // Input, Select, etc.
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent {
+    val component: DiscordComponent // Input, Select, etc.
+) : DiscordComponent {
     override val type: Int = 18
 }

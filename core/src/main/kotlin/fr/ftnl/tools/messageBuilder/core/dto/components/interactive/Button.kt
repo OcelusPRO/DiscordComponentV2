@@ -12,13 +12,12 @@ data class Button(
     override val id: Int? = null,
     val style: Int,
     val label: String? = null,
-    val emoji: fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji? = null,
+    val emoji: DiscordEmoji? = null,
     @SerialName("custom_id") val customId: String? = null, // Requis sauf pour Link/Premium
     val url: String? = null, // Requis pour Link (Style 5)
     @SerialName("sku_id") val skuId: String? = null, // Requis pour Premium (Style 6)
     val disabled: Boolean = false
-) : fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent, fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent,
-    fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, SectionChildComponent {
     override val type: Int = 2
 }
 
