@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -15,7 +16,7 @@ kotlin {
 }
 
 extensions.configure<PublishingExtension> {
-    publications.named<MavenPublication>("mavenJava") {
+    publications.withType<MavenPublication>().all {
         pom {
             name.set("Discord Message Components v2 Builder Core")
             description.set("A Kotlin library to build Discord message components v2 structures.")

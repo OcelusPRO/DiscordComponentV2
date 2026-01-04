@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     `java-library`
@@ -11,10 +10,10 @@ dependencies {
 }
 
 extensions.configure<PublishingExtension> {
-    publications.named<MavenPublication>("mavenJava") {
+    publications.withType<MavenPublication>().all {
         pom {
             name.set("Discord Message Components v2 Builder JDA")
-            description.set("JDA extention module for Discord Message Components v2 Builder.")
+            description.set("JDA extension module for Discord Message Components v2 Builder.")
         }
     }
 }
