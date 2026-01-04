@@ -1,12 +1,7 @@
+
 plugins {
-    kotlin("jvm")
-}
-
-group = "fr.ftnl.tools.messageBuilder"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    alias(libs.plugins.kotlin.jvm)
+    `java-library`
 }
 
 dependencies {
@@ -15,10 +10,11 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
-tasks.test {
-    useJUnitPlatform()
+extensions.configure<PublishingExtension> {
+    publications.named<MavenPublication>("mavenJava") {
+        pom {
+            name.set("Discord Message Components v2 Builder JDA")
+            description.set("JDA extention module for Discord Message Components v2 Builder.")
+        }
+    }
 }

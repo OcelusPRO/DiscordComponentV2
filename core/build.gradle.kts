@@ -1,24 +1,24 @@
 plugins {
-    kotlin("jvm")
-    alias(libs.plugins.kotlinx.serialization)
-}
-
-group = "fr.ftnl.tools.messageBuilder"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(kotlin("test"))
-    implementation(libs.kotlinx.serialization.json)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 kotlin {
-    jvmToolchain(17)
+    // 2. Dépendances
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+extensions.configure<PublishingExtension> {
+    publications.named<MavenPublication>("mavenJava") {
+        pom {
+            name.set("Discord Message Components v2 Builder Core")
+            description.set("A Kotlin library to build Discord message components v2 structures.")
+        }
+    }
 }
