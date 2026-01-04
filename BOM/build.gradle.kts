@@ -4,9 +4,9 @@ plugins {
 
 dependencies {
     constraints {
-        api(project(":core"))
-        api(project(":jda"))
-        api(project(":webhooks"))
+        api(project(":${rootProject.name}-core"))
+        api(project(":${rootProject.name}-jda"))
+        api(project(":${rootProject.name}-webhooks"))
     }
 }
 

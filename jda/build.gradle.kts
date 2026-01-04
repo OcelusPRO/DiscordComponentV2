@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.jda)
-    compileOnly(project(":core"))
+    compileOnly(project(":${rootProject.name}-core"))
     testImplementation(kotlin("test"))
 }
 
