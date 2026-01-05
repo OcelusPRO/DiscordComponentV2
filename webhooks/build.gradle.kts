@@ -8,12 +8,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":${rootProject.name}-core"))
+            compileOnly(project(":${rootProject.name}-core"))
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
         }
         commonTest.dependencies {
+            implementation(project(":${rootProject.name}-core"))
             implementation(kotlin("test"))
             implementation(libs.ktor.client.mock)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
