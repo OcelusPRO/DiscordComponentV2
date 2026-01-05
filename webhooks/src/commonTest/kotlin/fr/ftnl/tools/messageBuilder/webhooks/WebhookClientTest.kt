@@ -1,14 +1,13 @@
 package fr.ftnl.tools.messageBuilder.webhooks
 
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
-import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.utils.io.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
@@ -25,11 +24,13 @@ class WebhookClientTest {
             assertEquals("application/json", request.body.contentType.toString())
 
             val body = request.body.toByteArray().decodeToString()
-            // Verify body contains the text content
-            assertTrue(body.contains("Hello World"))
+            // TextDisplay serializes to content
+            assertTrue(body.contains("\"content\": \"Hello World\"") || body.contains("\"content\":\"Hello World\""), "Body should contain content 'Hello World': $body")
+            // Depending on serialization formatting (pretty print), spaces might vary.
+            assertTrue(body.contains("\"username\": \"BotName\"") || body.contains("\"username\":\"BotName\""), "Body should contain 'BotName': $body")
 
             respond(
-                content = ByteReadChannel(""),
+                content = io.ktor.utils.io.ByteReadChannel(""),
                 status = HttpStatusCode.NoContent,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
@@ -46,16 +47,19 @@ class WebhookClientTest {
         }
 
         val webhookClient = WebhookClient(client)
+        val builder = WebhookBuilder().fromUrl("https://discord.com/api/webhooks/123/abc")
+        builder.username = "BotName"
+
         val components = listOf(TextDisplay(content = "Hello World"))
 
-        webhookClient.send("https://discord.com/api/webhooks/123/abc", components)
+        webhookClient.send(builder, components)
     }
 
     @Test
     fun testSendWebhookFailure() = runTest {
         val mockEngine = MockEngine {
             respond(
-                content = ByteReadChannel("Bad Request"),
+                content = io.ktor.utils.io.ByteReadChannel("Bad Request"),
                 status = HttpStatusCode.BadRequest,
                 headers = headersOf(HttpHeaders.ContentType, "text/plain")
             )
@@ -72,10 +76,11 @@ class WebhookClientTest {
         }
 
         val webhookClient = WebhookClient(client)
-        val components = emptyList<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent>()
+        val builder = WebhookBuilder().fromUrl("https://discord.com/api/webhooks/123/abc")
+        val components = emptyList<DiscordComponent>()
 
         assertFailsWith<WebhookException> {
-            webhookClient.send("https://discord.com/api/webhooks/123/abc", components)
+            webhookClient.send(builder, components)
         }
     }
 }

@@ -19,6 +19,9 @@ kotlin {
             implementation(libs.ktor.client.mock)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
         }
+        jvmMain.dependencies {
+            compileOnly(libs.jda)
+        }
     }
 }
 
