@@ -42,41 +42,7 @@ class WebhookClient(private val httpClient: HttpClient) {
     }
 
     suspend fun send(builder: WebhookBuilder, components: List<DiscordComponent>) {
-        val content = components.filterIsInstance<TextDisplay>()
-            .joinToString("\n") { it.content }
-            .takeIf { it.isNotEmpty() }
-
-        val processedComponents = mutableListOf<DiscordComponent>()
-        val currentActionRowBuffer = mutableListOf<DiscordComponent>()
-
-        components.filter { it !is TextDisplay }.forEach { comp ->
-            if (comp is ActionRow) {
-                flushBuffer(processedComponents, currentActionRowBuffer)
-                processedComponents.add(comp)
-            } else {
-                // Button (Type 2) can share a row (up to 5).
-                // Other types (Selects) typically take a full row.
-                if (comp.type == 2) {
-                    if (currentActionRowBuffer.size >= 5) {
-                        flushBuffer(processedComponents, currentActionRowBuffer)
-                    }
-                    currentActionRowBuffer.add(comp)
-                } else {
-                    flushBuffer(processedComponents, currentActionRowBuffer)
-                    processedComponents.add(ActionRow(components = listOf(comp)))
-                }
-            }
-        }
-        flushBuffer(processedComponents, currentActionRowBuffer)
-
-        send(builder, WebhookMessage(content = content, components = processedComponents))
-    }
-
-    private fun flushBuffer(target: MutableList<DiscordComponent>, buffer: MutableList<DiscordComponent>) {
-        if (buffer.isNotEmpty()) {
-            target.add(ActionRow(components = buffer.toList()))
-            buffer.clear()
-        }
+        send(builder, WebhookMessage(components = components))
     }
 }
 

@@ -24,8 +24,10 @@ class WebhookClientTest {
             assertEquals("application/json", request.body.contentType.toString())
 
             val body = request.body.toByteArray().decodeToString()
-            // TextDisplay serializes to content
-            assertTrue(body.contains("\"content\": \"Hello World\"") || body.contains("\"content\":\"Hello World\""), "Body should contain content 'Hello World': $body")
+            // With raw components, TextDisplay (Type 10) is inside "components" array
+            assertTrue(body.contains("\"type\": 10") || body.contains("\"type\":10"), "Body should contain Type 10 component: $body")
+            assertTrue(body.contains("\"content\": \"Hello World\"") || body.contains("\"content\":\"Hello World\""), "Body should contain 'Hello World': $body")
+
             // Depending on serialization formatting (pretty print), spaces might vary.
             assertTrue(body.contains("\"username\": \"BotName\"") || body.contains("\"username\":\"BotName\""), "Body should contain 'BotName': $body")
 
