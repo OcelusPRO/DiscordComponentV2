@@ -4,6 +4,7 @@ kotlinx-serialization = "1.10.0-RC"
 jda = "6.2.0"
 nexus = "2.0.0"
 dokka = "2.1.0"
+ktor = "3.0.3"
 
 
 [plugins]
@@ -18,6 +19,10 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 jda = { group = "net.dv8tion", name = "JDA", version.ref = "jda" }
 
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 
 
 [bundles]

@@ -1,11 +1,24 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    `java-library`
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
-dependencies {
-    compileOnly(project(":${rootProject.name}-core"))
-    testImplementation(kotlin("test"))
+kotlin {
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(project(":${rootProject.name}-core"))
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.ktor.client.mock)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+        }
+    }
 }
 
 extensions.configure<PublishingExtension> {
