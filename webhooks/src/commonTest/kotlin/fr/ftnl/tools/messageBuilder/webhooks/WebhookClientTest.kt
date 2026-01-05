@@ -46,14 +46,9 @@ class WebhookClientTest {
         }
 
         val webhookClient = WebhookClient(client)
-        val container = Container(
-            id = 1,
-            components = listOf(TextDisplay(content = "Hello World")),
-            accentColor = 0xFFFFFF,
-            spoiler = false
-        )
+        val components = listOf(TextDisplay(content = "Hello World"))
 
-        webhookClient.send("https://discord.com/api/webhooks/123/abc", container)
+        webhookClient.send("https://discord.com/api/webhooks/123/abc", components)
     }
 
     @Test
@@ -77,10 +72,10 @@ class WebhookClientTest {
         }
 
         val webhookClient = WebhookClient(client)
-        val container = Container(components = emptyList())
+        val components = emptyList<fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent>()
 
         assertFailsWith<WebhookException> {
-            webhookClient.send("https://discord.com/api/webhooks/123/abc", container)
+            webhookClient.send("https://discord.com/api/webhooks/123/abc", components)
         }
     }
 }
