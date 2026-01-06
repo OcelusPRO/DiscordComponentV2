@@ -1,12 +1,9 @@
-@file:OptIn(ExperimentalWasmDsl::class)
-
 import io.github.gradlenexus.publishplugin.NexusPublishExtension
 import org.gradle.kotlin.dsl.support.serviceOf
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.process.ExecOperations
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import java.security.MessageDigest
@@ -62,15 +59,12 @@ subprojects {
             macosArm64()
             linuxX64()
             js(IR) {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xes-long-as-bigint")
+                }
                 browser()
                 nodejs()
                 binaries.library()
-                generateTypeScriptDefinitions()
-            }
-            wasmJs {
-                browser()
-                nodejs()
-                d8()
                 generateTypeScriptDefinitions()
             }
         }

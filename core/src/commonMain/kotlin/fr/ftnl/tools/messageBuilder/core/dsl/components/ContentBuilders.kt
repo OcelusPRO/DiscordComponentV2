@@ -5,7 +5,6 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGalleryItem
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem
 
-
 @ComponentDsl
 class TextBuilder {
     var content: String = ""

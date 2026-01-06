@@ -2,7 +2,6 @@ package fr.ftnl.tools.messageBuilder.core.dto
 
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertTrue

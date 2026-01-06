@@ -1,3 +1,5 @@
+@file:JsExport @file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
@@ -7,6 +9,9 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.layout.ActionRow
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Section
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Separator
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @ComponentDsl
 class ContainerBuilder : BaseComponentBuilder(), ContainerContext {
@@ -95,6 +100,7 @@ class ContainerBuilder : BaseComponentBuilder(), ContainerContext {
     }
 
 
+    @JsName("sectionBlock")
     fun section(accessoryBlock: SectionAccessoryBuilder.() -> Unit, block: SectionBuilder.() -> Unit) {
         val accessoryBuilder = SectionAccessoryBuilder()
         accessoryBuilder.accessoryBlock()
