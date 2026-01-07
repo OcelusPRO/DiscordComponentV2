@@ -152,7 +152,7 @@ object EasyComponentsBuilder {
     
     /**
      * Charge des composants depuis une String JSON ou un objet JS.
-     * @param input L'élément à charger (String ou Object, Array ou Solo)
+     * @param input {String | Object | Array} L'élément à charger (String ou Object, Array ou Solo)
      * @returns {DiscordComponent | DiscordComponent[]} Un composant unique ou un tableau de composants.
      */
     fun fromJson(input: dynamic): dynamic {
