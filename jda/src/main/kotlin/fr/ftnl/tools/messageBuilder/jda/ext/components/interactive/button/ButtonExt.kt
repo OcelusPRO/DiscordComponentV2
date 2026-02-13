@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.components.buttons.ButtonStyle as JdaButtonStyle
 
 fun Button.toJda(): JdaButton{
     val idOrUrl = if (style in listOf(ButtonStyles.PREMIUM, ButtonStyles.LINK)) url else customId
-    val jdaStyle = JdaButtonStyle.fromKey(style)
+    val jdaStyle = JdaButtonStyle.fromKey(style.value)
     requireNotNull(idOrUrl) { "Custom ID or URL is required for this button style" }
     return if (label != null) JdaButton.of(jdaStyle, idOrUrl, label!!)
     else {
