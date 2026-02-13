@@ -4,6 +4,8 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.content.*
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.*
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.*
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import fr.ftnl.tools.messageBuilder.jda.ext.components.content.mediaGallery.toJda
 import fr.ftnl.tools.messageBuilder.jda.ext.components.content.textDisplay.toJda
 import fr.ftnl.tools.messageBuilder.jda.ext.components.interactive.button.toJda

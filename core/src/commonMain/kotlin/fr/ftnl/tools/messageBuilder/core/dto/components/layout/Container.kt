@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.serializers.ColorHexSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -13,7 +14,7 @@ import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable
-class Container() : DiscordComponent, ContainerChildComponent {
+class Container() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

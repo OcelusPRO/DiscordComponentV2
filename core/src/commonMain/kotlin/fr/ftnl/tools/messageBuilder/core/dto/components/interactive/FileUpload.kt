@@ -4,6 +4,7 @@
 package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -13,7 +14,7 @@ import kotlin.js.JsName
 @Serializable
 class FileUpload(
     @SerialName("custom_id") var customId: String
-) : DiscordComponent {
+) : DiscordComponent, ModalCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

@@ -4,6 +4,7 @@
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -13,7 +14,7 @@ import kotlin.js.JsName
 class Label(
     var label: String,
     var component: DiscordComponent
-) : DiscordComponent {
+) : DiscordComponent, ModalCompatibleComponent {
     
     @JsName("createFull") constructor(id: Int? = null, label: String, description: String? = null, component: DiscordComponent) : this(label, component) {
         this.id = id

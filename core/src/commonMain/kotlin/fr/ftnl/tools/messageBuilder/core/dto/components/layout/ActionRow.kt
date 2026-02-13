@@ -5,13 +5,14 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable
-class ActionRow() : DiscordComponent, ContainerChildComponent {
+class ActionRow() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     @JsName("createFull") constructor(id: Int? = null, components: List<DiscordComponent> = emptyList()) : this() {
         this.id = id
         this.components = components.toMutableList()

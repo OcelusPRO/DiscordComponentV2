@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.content
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -12,7 +13,7 @@ import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable
-class MediaGallery() : DiscordComponent, ContainerChildComponent {
+class MediaGallery() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

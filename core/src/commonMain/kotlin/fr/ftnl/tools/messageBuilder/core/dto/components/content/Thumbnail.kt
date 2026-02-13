@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.content
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -14,7 +15,7 @@ import kotlin.js.JsName
 @Serializable
 class Thumbnail(
     var media: UnfurledMediaItem
-) : DiscordComponent, ContainerChildComponent, SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, SectionChildComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

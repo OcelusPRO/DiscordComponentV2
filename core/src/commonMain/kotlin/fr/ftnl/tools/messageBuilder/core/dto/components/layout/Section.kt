@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -13,7 +14,7 @@ import kotlin.js.JsName
 @Serializable
 class Section(
     var accessory: DiscordComponent
-) : DiscordComponent, ContainerChildComponent {
+) : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(id: Int? = null, components: List<DiscordComponent> = emptyList(), accessory: DiscordComponent) : this(accessory) {
         this.id = id

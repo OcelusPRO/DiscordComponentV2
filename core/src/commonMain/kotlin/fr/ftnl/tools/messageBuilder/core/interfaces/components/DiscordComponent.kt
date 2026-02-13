@@ -29,6 +29,9 @@ interface DiscordComponent {
 
 }
 
-interface ActionRowChildComponent   : DiscordComponent
-interface ContainerChildComponent   : DiscordComponent
-interface SectionChildComponent     : DiscordComponent
+interface ActionRowChildComponent       : DiscordComponent
+interface ContainerChildComponent       : DiscordComponent
+interface SectionChildComponent         : DiscordComponent
+
+interface MessageCompatibleComponent    : DiscordComponent
+interface ModalCompatibleComponent      : DiscordComponent

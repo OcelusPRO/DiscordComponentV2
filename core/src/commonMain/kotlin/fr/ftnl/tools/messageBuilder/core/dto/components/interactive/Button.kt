@@ -7,6 +7,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildCom
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
 import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -16,7 +17,7 @@ import kotlin.js.JsName
 @Serializable
 class Button(
     var style: Int
-) : DiscordComponent, ContainerChildComponent, SectionChildComponent {
+) : DiscordComponent, ContainerChildComponent, SectionChildComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

@@ -39,6 +39,8 @@ internal object ComponentSerializer : JsonContentPolymorphicSerializer<DiscordCo
             12 -> MediaGallery.serializer()
             13 -> FileComponent.serializer()
             14 -> Separator.serializer()
+            // 15 dont exist
+            // 16 dont exist
             17 -> Container.serializer()
             18 -> Label.serializer()
             19 -> FileUpload.serializer()
