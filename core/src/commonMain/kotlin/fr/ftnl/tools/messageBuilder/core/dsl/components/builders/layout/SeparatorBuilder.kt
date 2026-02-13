@@ -12,8 +12,8 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.layout.SpacingType
 @ComponentDsl
 class SeparatorBuilder: MessageComponentBuilder {
     
-    val divider: Boolean = true
-    val spacing: SpacingType = SpacingType.SMALL
+    var divider: Boolean = true
+    var spacing: SpacingType = SpacingType.SMALL
     
     override fun build(): Separator {
         return Separator(divider = divider, spacing = spacing)

@@ -5,13 +5,12 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content.MediaGa
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content.TextDisplayBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
-import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Separator
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 
 
 @ComponentDsl
 class ContainerBuilder : MessageComponentBuilder {
-    val containerComponents = mutableListOf<ContainerChildComponent>()
+    private val containerComponents = mutableListOf<ContainerChildComponent>()
     
     var color: Int? = null
     var spoiler: Boolean = false
@@ -22,9 +21,12 @@ class ContainerBuilder : MessageComponentBuilder {
         containerComponents.add(builder.build())
     }
     
-    fun separator(spacing: Int = 1, divider: Boolean = true) {
-        containerComponents.add(Separator(divider = divider, spacing = spacing))
+    fun separator(block: SeparatorBuilder.() -> Unit) {
+        val builder = SeparatorBuilder()
+        builder.block()
+        containerComponents.add(builder.build())
     }
+
     
     fun mediaGallery(block: MediaGalleryBuilder.() -> Unit) {
         val builder = MediaGalleryBuilder()
