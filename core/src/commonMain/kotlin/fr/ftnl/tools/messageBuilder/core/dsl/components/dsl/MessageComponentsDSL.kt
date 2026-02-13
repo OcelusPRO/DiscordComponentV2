@@ -96,6 +96,7 @@ class MessageComponentsDSL: BaseComponentBuilder() {
     fun section(block: SectionBuilder.() -> Unit) {
         val builder = SectionBuilder()
         builder.block()
+        add(builder.build())
     }
     fun separator(block: SeparatorBuilder.() -> Unit) {
         val builder = SeparatorBuilder()
