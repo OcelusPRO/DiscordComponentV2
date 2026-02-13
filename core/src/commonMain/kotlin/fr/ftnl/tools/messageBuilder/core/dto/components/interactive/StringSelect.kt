@@ -3,7 +3,6 @@
 
 package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 
-import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent

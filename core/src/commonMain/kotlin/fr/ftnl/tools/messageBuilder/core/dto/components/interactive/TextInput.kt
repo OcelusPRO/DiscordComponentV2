@@ -3,12 +3,9 @@
 
 package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 
-import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
-import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
-import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
