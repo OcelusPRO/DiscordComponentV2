@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import kotlinx.serialization.SerialName
@@ -14,7 +15,7 @@ import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable
-abstract class BaseEntitySelect : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent, ModalCompatibleComponent {
+abstract class BaseEntitySelect : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent, ModalCompatibleComponent, LabelChildComponent {
     @SerialName("custom_id") abstract var customId: String
     abstract var placeholder: String?
     @SerialName("min_values") abstract var minValues: Int

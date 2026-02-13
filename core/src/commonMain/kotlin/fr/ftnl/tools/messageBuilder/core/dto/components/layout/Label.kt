@@ -4,6 +4,7 @@
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -13,10 +14,10 @@ import kotlin.js.JsName
 @Serializable
 class Label(
     var label: String,
-    var component: DiscordComponent
+    var component: LabelChildComponent
 ) : DiscordComponent, ModalCompatibleComponent {
     
-    @JsName("createFull") constructor(id: Int? = null, label: String, description: String? = null, component: DiscordComponent) : this(label, component) {
+    @JsName("createFull") constructor(id: Int? = null, label: String, description: String? = null, component: LabelChildComponent) : this(label, component) {
         this.id = id
         this.description = description
     }
@@ -33,6 +34,11 @@ class Label(
     
     fun setDescription(description: String?): Label {
         this.description = description
+        return this
+    }
+    
+    fun setComponent(component: LabelChildComponent): Label {
+        this.component = component
         return this
     }
 }

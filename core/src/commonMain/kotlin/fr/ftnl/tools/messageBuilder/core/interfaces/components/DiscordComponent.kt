@@ -35,3 +35,4 @@ interface SectionChildComponent         : DiscordComponent
 
 interface MessageCompatibleComponent    : DiscordComponent
 interface ModalCompatibleComponent      : DiscordComponent
+interface LabelChildComponent           : ModalCompatibleComponent

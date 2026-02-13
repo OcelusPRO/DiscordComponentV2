@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import kotlinx.serialization.SerialName
@@ -17,7 +18,7 @@ import kotlin.js.JsName
 @Serializable
 class StringSelect(
     @SerialName("custom_id") var customId: String
-) : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent, ModalCompatibleComponent {
+) : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent, ModalCompatibleComponent, LabelChildComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,
