@@ -22,12 +22,26 @@ class Checkbox(
     @JsName("createFull") constructor(
         id: Int? = null,
         customId: String,
+        default: Boolean? = null
     ) : this(customId) {
         this.id = id
+        this.default = default
     }
     
     override var id: Int? = null
     override val type: Int = 23
     var default: Boolean? = null
+    
+    fun setId(id: Int?): Checkbox {
+        this.id = id
+        return this
+    }
+    
+    fun setDefault(default: Boolean?): Checkbox {
+        this.default = default
+        return this
+    }
+    
+    
     
 }

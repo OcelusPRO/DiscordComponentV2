@@ -13,6 +13,8 @@ import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 import kotlin.js.JsName
+import kotlin.math.max
+import kotlin.math.min
 
 @Serializable
 class CheckboxGroup(
@@ -22,23 +24,72 @@ class CheckboxGroup(
     @JsName("createFull") constructor(
         id: Int? = null,
         customId: String,
+        options: List<CheckboxGroupOption> = emptyList(),
+        required: Boolean? = null,
+        minValues: Int = 1,
+        maxValues: Int = 10
     ) : this(customId) {
         this.id = id
+        this.setOptions(options.toTypedArray())
+        this.setRequired(required)
+        this.setValueRange(minValues, maxValues)
     }
     
     override var id: Int? = null
     override val type: Int = 22
     
+    @SerialName("min_values") var minValues: Int = 1
+    @SerialName("max_values") var maxValues: Int = 10
+    var required: Boolean? = true
+    var options: MutableList<CheckboxGroupOption> = mutableListOf()
     
-    // options: list checkbox group option min 1 max 10
-    // min_values: int? max item selected, 0 to 10 default 1, if 0 required must be false
-    // max_values: int? max item selected, 1 to 10 default number of options
-    // required: bool default true
+    fun setId(id: Int?): CheckboxGroup {
+        this.id = id
+        return this
+    }
+    
+    fun setMinValues(minValues: Int): CheckboxGroup {
+        this.minValues = max(0, min(10, minValues))
+        return this
+    }
+    fun setMaxValues(maxValues: Int): CheckboxGroup {
+        this.maxValues = min(10, max(1, maxValues))
+        return this
+    }
+    fun setValueRange(minValues: Int, maxValues: Int): CheckboxGroup {
+        this.setMinValues(minValues)
+        this.setMaxValues(maxValues)
+        return this
+    }
+    @JsName("setValueIntRange") fun setValueRange(valueRange: IntRange): CheckboxGroup {
+        val min = valueRange.min()
+        val max = valueRange.max()
+        return setValueRange(min, max)
+    }
+    
+    fun setRequired(required: Boolean?): CheckboxGroup {
+        this.required = required
+        return this
+    }
+    
+
+    fun addOptions(vararg newOptions: CheckboxGroupOption): CheckboxGroup {
+        require(newOptions.size + this.options.size <= 10) { "Checkbox group can't have more than 10 options" }
+        this.options.addAll(newOptions)
+        return this
+    }
+    fun setOptions(newOptions: Array<CheckboxGroupOption>): CheckboxGroup {
+        require(newOptions.size <= 10) { "Checkbox group can't have more than 10 options" }
+        require(newOptions.isNotEmpty()) { "Checkbox group can't have less than 1 option" }
+        this.options = options.toMutableList()
+        return this
+    }
     
     
 }
 
-data class CheckbocxGroupOption(
+@Serializable
+data class CheckboxGroupOption(
     val value: String,
     val label: String,
     val description: String? = null,
