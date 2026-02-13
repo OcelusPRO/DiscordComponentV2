@@ -25,7 +25,7 @@ class Section() : DiscordComponent, ContainerChildComponent, MessageCompatibleCo
     }
     
     override var id: Int? = null
-    private var components: SectionChildList = SectionChildList()
+    var components: SectionChildList = SectionChildList()
     var accessory: SectionAccessoryComponent? = null
     @EncodeDefault override val type: Int = 9
     

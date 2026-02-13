@@ -22,7 +22,7 @@ class ActionRow() : DiscordComponent, ContainerChildComponent, MessageCompatible
     }
     
     override var id: Int? = null
-    private var components: ActionRowChildList = ActionRowChildList()
+    var components: ActionRowChildList = ActionRowChildList()
     @EncodeDefault override val type: Int = 1
     
     fun setId(id: Int?): ActionRow {

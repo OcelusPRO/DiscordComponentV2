@@ -31,7 +31,7 @@ class Container() : DiscordComponent, MessageCompatibleComponent {
     }
     
     override var id: Int? = null
-    private var components: ContainerChildList = ContainerChildList()
+    var components: ContainerChildList = ContainerChildList()
     @Serializable(with = ColorHexSerializer::class)
     @SerialName("accent_color")
     var accentColor: Int? = null // RGB int 0x000000
