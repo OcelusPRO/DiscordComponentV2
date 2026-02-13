@@ -1,4 +1,3 @@
-@file:JsExport
 @file:OptIn(ExperimentalJsExport::class, ExperimentalSerializationApi::class)
 
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.FileComponent
