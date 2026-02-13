@@ -132,6 +132,12 @@ internal object LabelChildSerializer : KSerializer<LabelChildComponent> {
 }
 
 
+internal object ComponentListSerializer : KSerializer<List<DiscordComponent>> by ListSerializer(ComponentSerializer)
+internal object ActionRowChildListSerializer : KSerializer<List<ActionRowChildComponent>> by ListSerializer(ActionRowChildSerializer)
+internal object ContainerChildListSerializer : KSerializer<List<ContainerChildComponent>> by ListSerializer(ContainerChildSerializer)
+internal object SectionChildListSerializer : KSerializer<List<SectionChildComponent>> by ListSerializer(SectionChildSerializer)
+internal object MessageCompatibleListSerializer : KSerializer<List<MessageCompatibleComponent>> by ListSerializer(MessageCompatibleSerializer)
+internal object ModalCompatibleListSerializer : KSerializer<List<ModalCompatibleComponent>> by ListSerializer(ModalCompatibleSerializer)
 
 
 // Fallback pour les types inconnus

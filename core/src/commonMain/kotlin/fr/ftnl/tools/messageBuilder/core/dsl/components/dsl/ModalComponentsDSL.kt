@@ -17,6 +17,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.Tex
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.UserSelectBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.LabelComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleList
 
 interface ModalComponentBuilder: ComponentBuilder {
     override fun build(): ModalCompatibleComponent
@@ -86,8 +87,9 @@ class ModalComponentsDSL: BaseComponentBuilder() {
         add(builder)
     }
     
-    fun build(): List<ModalCompatibleComponent> {
-        return components.filterIsInstance<ModalCompatibleComponent>()
+    fun build(): ModalCompatibleList {
+        val filteredList =  components.elements.filterIsInstance<ModalCompatibleComponent>()
+        return ModalCompatibleList(filteredList)
     }
 }
 
@@ -95,7 +97,7 @@ class ModalComponentsDSL: BaseComponentBuilder() {
  * Entry point for the Message Component DSL.
  * Returns a list of constructed components.
  */
-fun modalComponents(block: ModalComponentsDSL.() -> Unit): List<ModalCompatibleComponent> {
+fun modalComponents(block: ModalComponentsDSL.() -> Unit): ModalCompatibleList {
     val builder = ModalComponentsDSL()
     builder.block()
     return builder.build()

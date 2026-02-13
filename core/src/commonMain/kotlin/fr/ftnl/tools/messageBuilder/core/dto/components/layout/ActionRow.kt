@@ -4,6 +4,7 @@
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildList
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
@@ -15,13 +16,13 @@ import kotlin.js.JsName
 @Serializable
 class ActionRow() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     @JsName("createFull") constructor(id: Int? = null, components: List<ActionRowChildComponent> = emptyList()) : this() {
-        this.id = id
-        this.components = components.toMutableList()
+        this.setId(id)
+        this.setComponents(components)
     }
     
     override var id: Int? = null
-    var components: MutableList<ActionRowChildComponent> = mutableListOf()
-    override val type: Int = 1
+    private var components: ActionRowChildList = ActionRowChildList()
+    @EncodeDefault override val type: Int = 1
     
     fun setId(id: Int?): ActionRow {
         this.id = id
@@ -29,12 +30,12 @@ class ActionRow() : DiscordComponent, ContainerChildComponent, MessageCompatible
     }
     
     fun addComponent(component: ActionRowChildComponent): ActionRow {
-        this.components.add(component)
+        this.components = ActionRowChildList(this.components.elements + component)
         return this
     }
     
-    fun setComponents(components: Array<ActionRowChildComponent>): ActionRow {
-        this.components = components.toMutableList()
+    fun setComponents(components: List<ActionRowChildComponent>): ActionRow {
+        this.components = ActionRowChildList(components)
         return this
     }
 }

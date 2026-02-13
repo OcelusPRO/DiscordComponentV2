@@ -3,6 +3,8 @@
 
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildList
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.serializers.ColorHexSerializer
@@ -17,18 +19,18 @@ class Container() : DiscordComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,
-        components: List<DiscordComponent> = emptyList(),
+        components: List<ContainerChildComponent> = emptyList(),
         accentColor: Int? = null,
         spoiler: Boolean = false
     ) : this() {
-        this.id = id
-        this.components = components.toMutableList()
-        this.accentColor = accentColor
-        this.spoiler = spoiler
+        this.setId(id)
+        this.setComponents(components)
+        this.setAccentColor(accentColor)
+        this.setSpoiler(spoiler)
     }
     
     override var id: Int? = null
-    var components: MutableList<DiscordComponent> = mutableListOf()
+    private var components: ContainerChildList = ContainerChildList()
     @Serializable(with = ColorHexSerializer::class)
     @SerialName("accent_color")
     var accentColor: Int? = null // RGB int 0x000000
@@ -40,8 +42,13 @@ class Container() : DiscordComponent, MessageCompatibleComponent {
         return this
     }
     
-    fun addComponent(component: DiscordComponent): Container {
-        this.components.add(component)
+    fun addComponent(component: ContainerChildComponent): Container {
+        this.components = ContainerChildList(this.components.elements + component)
+        return this
+    }
+    
+    fun setComponents(components: List<ContainerChildComponent>): Container {
+        this.components = ContainerChildList(components)
         return this
     }
     

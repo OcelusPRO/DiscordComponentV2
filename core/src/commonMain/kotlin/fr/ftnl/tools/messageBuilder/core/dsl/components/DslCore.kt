@@ -1,5 +1,6 @@
 package fr.ftnl.tools.messageBuilder.core.dsl.components
 
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ComponentList
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 
 @DslMarker
@@ -12,10 +13,10 @@ interface ComponentBuilder {
 
 @ComponentDsl
 open class BaseComponentBuilder {
-    protected val components = mutableListOf<DiscordComponent>()
+    protected var components = ComponentList()
 
     protected fun <T : DiscordComponent> add(component: T) {
-        components.add(component)
+        components = ComponentList(components.elements + component)
     }
     
     protected fun <T: ComponentBuilder> add(builder: T) {

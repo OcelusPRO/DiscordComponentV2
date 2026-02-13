@@ -20,6 +20,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.SectionB
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.SeparatorBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleList
 
 interface MessageComponentBuilder: ComponentBuilder {
     override fun build(): MessageCompatibleComponent
@@ -105,8 +106,9 @@ class MessageComponentsDSL: BaseComponentBuilder() {
     }
     
     
-    internal fun build(): List<MessageCompatibleComponent> {
-        return components.filterIsInstance<MessageCompatibleComponent>()
+    internal fun build(): MessageCompatibleList {
+        val filteredList = components.elements.filterIsInstance<MessageCompatibleComponent>()
+        return MessageCompatibleList(filteredList)
     }
 }
 
@@ -114,7 +116,7 @@ class MessageComponentsDSL: BaseComponentBuilder() {
  * Entry point for the Message Component DSL.
  * Returns a list of constructed components.
  */
-fun messageComponents(block: MessageComponentsDSL.() -> Unit): List<MessageCompatibleComponent> {
+fun messageComponents(block: MessageComponentsDSL.() -> Unit): MessageCompatibleList {
     val builder = MessageComponentsDSL()
     builder.block()
     return builder.build()
