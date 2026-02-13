@@ -145,5 +145,12 @@ internal object ModalCompatibleListSerializer : KSerializer<List<ModalCompatible
 data class UnknownComponent(
     override val type: Int,
     override val id: Int? = null
-) : DiscordComponent
+) : DiscordComponent,
+    ActionRowChildComponent,
+    ContainerChildComponent,
+    SectionChildComponent,
+    SectionAccessoryComponent,
+    MessageCompatibleComponent,
+    ModalCompatibleComponent,
+    LabelChildComponent
 
