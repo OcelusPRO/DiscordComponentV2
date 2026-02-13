@@ -3,10 +3,11 @@ package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Button
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
 
 @ComponentDsl
-class ButtonBuilder(val customId: String, val style: Int): MessageComponentBuilder {
+class ButtonBuilder(val customId: String, val style: ButtonStyles): MessageComponentBuilder {
     var label: String? = null
     var url: String? = null
     var emoji: DiscordEmoji? = null

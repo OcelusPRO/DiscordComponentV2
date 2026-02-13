@@ -8,6 +8,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.Rol
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.StringSelectBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.UserSelectBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.ActionRow
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
 
@@ -16,7 +17,7 @@ class ActionRowBuilder : MessageComponentBuilder {
     
     private val rowComponents = mutableListOf<ActionRowChildComponent>()
     
-    fun button(customId: String, style: Int, block: ButtonBuilder.() -> Unit) {
+    fun button(customId: String, style: ButtonStyles, block: ButtonBuilder.() -> Unit) {
         val builder = ButtonBuilder(customId, style)
         builder.block()
         rowComponents.add(builder.build())

@@ -18,6 +18,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.ActionRo
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.ContainerBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.SectionBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.SeparatorBuilder
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 
 interface MessageComponentBuilder: ComponentBuilder {
@@ -50,7 +51,7 @@ class MessageComponentsDSL: BaseComponentBuilder() {
     }
     
     // interactive
-    fun button(customId: String, style: Int, block: ButtonBuilder.() -> Unit) {
+    fun button(customId: String, style: ButtonStyles, block: ButtonBuilder.() -> Unit) {
         val builder = ButtonBuilder(customId, style)
         builder.block()
         add(builder.build())

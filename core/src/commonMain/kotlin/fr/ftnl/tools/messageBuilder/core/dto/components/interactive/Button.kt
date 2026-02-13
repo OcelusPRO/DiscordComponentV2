@@ -8,6 +8,7 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
+import fr.ftnl.tools.messageBuilder.core.serializers.components.ButtonStyleSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -16,12 +17,12 @@ import kotlin.js.JsName
 
 @Serializable
 class Button(
-    var style: Int
+    var style: ButtonStyles
 ) : DiscordComponent, SectionAccessoryComponent, MessageCompatibleComponent, ActionRowChildComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,
-        style: Int,
+        style: ButtonStyles,
         label: String? = null,
         emoji: DiscordEmoji? = null,
         customId: String? = null,
@@ -90,12 +91,13 @@ class Button(
     }
 }
 
+@Serializable(with = ButtonStyleSerializer::class)
 @JsExport
-object ButtonStyles {
-    const val PRIMARY = 1
-    const val SECONDARY = 2
-    const val SUCCESS = 3
-    const val DANGER = 4
-    const val LINK = 5
-    const val PREMIUM = 6
+enum class ButtonStyles(val value: Int) {
+    PRIMARY(1),
+    SECONDARY(2),
+    SUCCESS(3),
+    DANGER(4),
+    LINK(5),
+    PREMIUM(6)
 }

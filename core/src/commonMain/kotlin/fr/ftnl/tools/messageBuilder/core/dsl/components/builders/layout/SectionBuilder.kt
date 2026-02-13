@@ -6,6 +6,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.But
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.Thumbnail
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Section
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
@@ -47,7 +48,7 @@ class SectionBuilder : MessageComponentBuilder {
 class SectionAccessoryBuilder {
     private var component: SectionAccessoryComponent? = null
     
-    fun button(customId: String, style: Int, block: ButtonBuilder.() -> Unit) {
+    fun button(customId: String, style: ButtonStyles, block: ButtonBuilder.() -> Unit) {
         val builder = ButtonBuilder(customId, style)
         builder.block()
         component = builder.build()
