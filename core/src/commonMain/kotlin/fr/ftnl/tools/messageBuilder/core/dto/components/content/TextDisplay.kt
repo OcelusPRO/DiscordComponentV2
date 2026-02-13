@@ -8,6 +8,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -26,7 +27,7 @@ class TextDisplay(
     }
     
     override var id: Int? = null
-    override val type: Int = 10
+    @EncodeDefault override val type: Int = 10
     
     fun setId(id: Int?): TextDisplay {
         this.id = id

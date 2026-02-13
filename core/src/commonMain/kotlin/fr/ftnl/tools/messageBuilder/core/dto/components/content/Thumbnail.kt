@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.content
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -28,10 +29,10 @@ class Thumbnail(
     }
     
     override var id: Int? = null
-    var description: String? = null
-    var spoiler: Boolean = false
+    @EncodeDefault var description: String? = null
+    @EncodeDefault var spoiler: Boolean = false
     
-    override val type: Int = 11
+    @EncodeDefault override val type: Int = 11
     
     fun setId(id: Int?): Thumbnail {
         this.id = id

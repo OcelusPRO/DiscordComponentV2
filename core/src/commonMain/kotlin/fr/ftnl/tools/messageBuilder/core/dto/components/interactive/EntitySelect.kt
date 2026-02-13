@@ -8,6 +8,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -34,27 +35,22 @@ abstract class BaseEntitySelect :
         this.placeholder = placeholder
         return this
     }
-    
     fun setMinValues(minValues: Int): BaseEntitySelect {
         this.minValues = minValues
         return this
     }
-    
     fun setMaxValues(maxValues: Int): BaseEntitySelect {
         this.maxValues = maxValues
         return this
     }
-    
     fun setDisabled(disabled: Boolean): BaseEntitySelect {
         this.disabled = disabled
         return this
     }
-    
     fun setRequired(required: Boolean): BaseEntitySelect {
         this.required = required
         return this
     }
-    
     fun addDefaultValue(value: SelectDefaultValue): BaseEntitySelect {
         if (this.defaultValues == null) this.defaultValues = mutableListOf()
         this.defaultValues?.add(value)
@@ -85,12 +81,12 @@ class UserSelect(@SerialName("custom_id") override var customId: String) : BaseE
     
     override var id: Int? = null
     override var placeholder: String? = null
-    override var minValues: Int = 1
-    override var maxValues: Int = 1
-    override var disabled: Boolean = false
-    override var required: Boolean = true
+    @EncodeDefault override var minValues: Int = 1
+    @EncodeDefault override var maxValues: Int = 1
+    @EncodeDefault override var disabled: Boolean = false
+    @EncodeDefault override var required: Boolean = true
     override var defaultValues: MutableList<SelectDefaultValue>? = null
-    override val type: Int = 5
+    @EncodeDefault override val type: Int = 5
     
     fun setId(id: Int?): UserSelect {
         this.id = id
@@ -121,12 +117,12 @@ class RoleSelect(@SerialName("custom_id") override var customId: String) : BaseE
     
     override var id: Int? = null
     override var placeholder: String? = null
-    override var minValues: Int = 1
-    override var maxValues: Int = 1
-    override var disabled: Boolean = false
-    override var required: Boolean = true
+    @EncodeDefault override var minValues: Int = 1
+    @EncodeDefault override var maxValues: Int = 1
+    @EncodeDefault override var disabled: Boolean = false
+    @EncodeDefault override var required: Boolean = true
     override var defaultValues: MutableList<SelectDefaultValue>? = null
-    override val type: Int = 6
+    @EncodeDefault override val type: Int = 6
     
     fun setId(id: Int?): RoleSelect {
         this.id = id
@@ -157,12 +153,12 @@ class MentionableSelect(@SerialName("custom_id") override var customId: String) 
     
     override var id: Int? = null
     override var placeholder: String? = null
-    override var minValues: Int = 1
-    override var maxValues: Int = 1
-    override var disabled: Boolean = false
-    override var required: Boolean = true
+    @EncodeDefault override var minValues: Int = 1
+    @EncodeDefault override var maxValues: Int = 1
+    @EncodeDefault override var disabled: Boolean = false
+    @EncodeDefault override var required: Boolean = true
     override var defaultValues: MutableList<SelectDefaultValue>? = null
-    override val type: Int = 7
+    @EncodeDefault override val type: Int = 7
     
     fun setId(id: Int?): MentionableSelect {
         this.id = id
@@ -199,12 +195,12 @@ class ChannelSelect(@SerialName("custom_id") override var customId: String) : Ba
     var channelTypes: MutableList<Int>? = null
     
     override var placeholder: String? = null
-    override var minValues: Int = 1
-    override var maxValues: Int = 1
-    override var disabled: Boolean = false
-    override var required: Boolean = true
+    @EncodeDefault override var minValues: Int = 1
+    @EncodeDefault override var maxValues: Int = 1
+    @EncodeDefault override var disabled: Boolean = false
+    @EncodeDefault override var required: Boolean = true
     override var defaultValues: MutableList<SelectDefaultValue>? = null
-    override val type: Int = 8
+    @EncodeDefault override val type: Int = 8
     
     fun setId(id: Int?): ChannelSelect {
         this.id = id

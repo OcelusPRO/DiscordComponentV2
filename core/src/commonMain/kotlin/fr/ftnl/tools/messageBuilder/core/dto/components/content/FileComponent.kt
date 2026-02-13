@@ -5,6 +5,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.content
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -29,11 +30,11 @@ class FileComponent(
     }
     
     override var id: Int? = null
-    var spoiler: Boolean = false
+    @EncodeDefault var spoiler: Boolean = false
     var name: String? = null
     var size: Int? = null
     
-    override val type: Int = 13
+    @EncodeDefault override val type: Int = 13
     
     fun setId(id: Int?): FileComponent {
         this.id = id

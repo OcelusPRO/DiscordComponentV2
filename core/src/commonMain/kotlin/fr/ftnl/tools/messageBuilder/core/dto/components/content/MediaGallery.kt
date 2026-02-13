@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.content
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -24,8 +25,8 @@ class MediaGallery() : DiscordComponent, ContainerChildComponent, MessageCompati
     }
     
     override var id: Int? = null
-    var items: MutableList<MediaGalleryItem> = mutableListOf()
-    override val type: Int = 12
+    @EncodeDefault var items: MutableList<MediaGalleryItem> = mutableListOf()
+    @EncodeDefault override val type: Int = 12
     
     fun setId(id: Int?): MediaGallery {
         this.id = id

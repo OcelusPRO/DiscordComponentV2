@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -27,7 +28,7 @@ class Checkbox(
     }
     
     override var id: Int? = null
-    override val type: Int = 23
+    @EncodeDefault override val type: Int = 23
     var default: Boolean? = null
     
     fun setId(id: Int?): Checkbox {

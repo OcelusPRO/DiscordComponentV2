@@ -9,6 +9,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildCom
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
 import fr.ftnl.tools.messageBuilder.core.serializers.components.ButtonStyleSerializer
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -51,9 +52,9 @@ class Button(
     @SerialName("sku_id")
     var skuId: String? = null
     
-    var disabled: Boolean = false
+    @EncodeDefault var disabled: Boolean = false
     
-    override val type: Int = 2
+    @EncodeDefault override val type: Int = 2
     
     fun setId(id: Int?): Button {
         this.id = id

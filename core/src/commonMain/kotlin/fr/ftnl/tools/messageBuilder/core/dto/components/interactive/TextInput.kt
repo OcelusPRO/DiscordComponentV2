@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -41,11 +42,11 @@ class TextInput(
     @SerialName("min_length") var minLength: Int? = null
     @SerialName("max_length") var maxLength: Int? = null
     
-    var required: Boolean = true
+    @EncodeDefault var required: Boolean = true
     var value: String? = null
     var placeholder: String? = null
     
-    override val type: Int = 4
+    @EncodeDefault override val type: Int = 4
     
     fun setId(id: Int?): TextInput {
         this.id = id

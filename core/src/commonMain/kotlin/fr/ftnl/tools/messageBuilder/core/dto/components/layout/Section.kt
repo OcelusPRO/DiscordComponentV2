@@ -9,6 +9,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatible
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildList
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -26,8 +27,7 @@ class Section() : DiscordComponent, ContainerChildComponent, MessageCompatibleCo
     override var id: Int? = null
     private var components: SectionChildList = SectionChildList()
     var accessory: SectionAccessoryComponent? = null
-    
-    override val type: Int = 9
+    @EncodeDefault override val type: Int = 9
     
     fun setId(id: Int?): Section {
         this.id = id

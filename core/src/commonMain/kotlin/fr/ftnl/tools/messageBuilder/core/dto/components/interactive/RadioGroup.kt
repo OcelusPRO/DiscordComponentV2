@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.collections.addAll
@@ -30,9 +31,9 @@ class RadioGroup(
     }
     
     override var id: Int? = null
-    override val type: Int = 21
-    var required: Boolean? = true
-    var options: MutableList<RadioGroupOption> = mutableListOf()
+    @EncodeDefault override val type: Int = 21
+    @EncodeDefault var required: Boolean? = true
+    @EncodeDefault var options: MutableList<RadioGroupOption> = mutableListOf()
     
     fun setId(id: Int?): RadioGroup {
         this.id = id
@@ -63,5 +64,5 @@ data class RadioGroupOption(
     val value: String,
     val label: String,
     val description: String? = null,
-    val default: Boolean = false
+    @EncodeDefault val default: Boolean = false
 )

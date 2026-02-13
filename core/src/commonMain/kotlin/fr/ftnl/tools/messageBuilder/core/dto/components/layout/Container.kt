@@ -8,6 +8,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildLis
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.serializers.ColorHexSerializer
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -34,8 +35,8 @@ class Container() : DiscordComponent, MessageCompatibleComponent {
     @Serializable(with = ColorHexSerializer::class)
     @SerialName("accent_color")
     var accentColor: Int? = null // RGB int 0x000000
-    var spoiler: Boolean = false
-    override val type: Int = 17
+    @EncodeDefault var spoiler: Boolean = false
+    @EncodeDefault override val type: Int = 17
     
     fun setId(id: Int?): Container {
         this.id = id

@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -32,12 +33,12 @@ class FileUpload(
     
     override var id: Int? = null
     
-    @SerialName("min_values") var minValues: Int = 1
-    @SerialName("max_values") var maxValues: Int = 10
+    @EncodeDefault @SerialName("min_values") var minValues: Int = 1
+    @EncodeDefault @SerialName("max_values") var maxValues: Int = 10
     
-    var required: Boolean = true
+    @EncodeDefault var required: Boolean = true
     
-    override val type: Int = 19
+    @EncodeDefault override val type: Int = 19
     
     fun setId(id: Int?): FileUpload {
         this.id = id

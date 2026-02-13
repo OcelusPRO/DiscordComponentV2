@@ -9,6 +9,7 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildCom
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -46,16 +47,16 @@ class StringSelect(
     }
     
     override var id: Int? = null
-    var options: MutableList<SelectOption> = mutableListOf()
+    @EncodeDefault var options: MutableList<SelectOption> = mutableListOf()
     var placeholder: String? = null
     
-    @SerialName("min_values") var minValues: Int = 1
-    @SerialName("max_values") var maxValues: Int = 1
+    @EncodeDefault @SerialName("min_values") var minValues: Int = 1
+    @EncodeDefault @SerialName("max_values") var maxValues: Int = 1
     
-    var required: Boolean = true
-    var disabled: Boolean = false
+    @EncodeDefault var required: Boolean = true
+    @EncodeDefault var disabled: Boolean = false
     
-    override val type: Int = 3
+    @EncodeDefault override val type: Int = 3
     
     fun setId(id: Int?): StringSelect {
         this.id = id

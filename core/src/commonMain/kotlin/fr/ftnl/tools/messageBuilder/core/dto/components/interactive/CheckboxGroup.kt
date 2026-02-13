@@ -6,6 +6,7 @@ package fr.ftnl.tools.messageBuilder.core.dto.components.interactive
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.js.ExperimentalJsExport
@@ -34,12 +35,12 @@ class CheckboxGroup(
     }
     
     override var id: Int? = null
-    override val type: Int = 22
+    @EncodeDefault override val type: Int = 22
     
-    @SerialName("min_values") var minValues: Int = 1
-    @SerialName("max_values") var maxValues: Int = 10
-    var required: Boolean? = true
-    var options: MutableList<CheckboxGroupOption> = mutableListOf()
+    @EncodeDefault @SerialName("min_values") var minValues: Int = 1
+    @EncodeDefault @SerialName("max_values") var maxValues: Int = 10
+    @EncodeDefault var required: Boolean? = true
+    @EncodeDefault var options: MutableList<CheckboxGroupOption> = mutableListOf()
     
     fun setId(id: Int?): CheckboxGroup {
         this.id = id
@@ -91,5 +92,5 @@ data class CheckboxGroupOption(
     val value: String,
     val label: String,
     val description: String? = null,
-    val default: Boolean = false
+    @EncodeDefault val default: Boolean = false
 )
