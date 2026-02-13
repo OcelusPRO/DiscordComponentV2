@@ -19,7 +19,7 @@ import kotlin.js.JsName
 @Serializable
 class RadioGroup(
     @SerialName("custom_id") var customId: String,
-) : DiscordComponent, ContainerChildComponent, ActionRowChildComponent, SectionChildComponent, ModalCompatibleComponent, LabelChildComponent {
+) : DiscordComponent, ModalCompatibleComponent, LabelChildComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

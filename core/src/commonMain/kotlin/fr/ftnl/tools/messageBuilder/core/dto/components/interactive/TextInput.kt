@@ -19,7 +19,7 @@ import kotlin.js.JsName
 class TextInput(
     @SerialName("custom_id") var customId: String,
     var style: Int
-) : DiscordComponent, ContainerChildComponent, ActionRowChildComponent, SectionChildComponent, ModalCompatibleComponent, LabelChildComponent {
+) : DiscordComponent, ModalCompatibleComponent, LabelChildComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

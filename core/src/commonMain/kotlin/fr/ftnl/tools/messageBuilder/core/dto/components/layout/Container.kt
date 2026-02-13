@@ -14,7 +14,7 @@ import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable
-class Container() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
+class Container() : DiscordComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

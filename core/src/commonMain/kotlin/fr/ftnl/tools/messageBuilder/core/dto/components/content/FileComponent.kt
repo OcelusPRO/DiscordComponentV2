@@ -14,7 +14,7 @@ import kotlin.js.JsName
 @Serializable
 class FileComponent(
     var file: UnfurledMediaItem
-) : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
+) : DiscordComponent, MessageCompatibleComponent {
     
     @JsName("createFull") constructor(
         id: Int? = null,

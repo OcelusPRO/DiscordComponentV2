@@ -1,30 +1,22 @@
-package fr.ftnl.tools.messageBuilder.core.dsl.components
+package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content
 
+import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
+import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGallery
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGalleryItem
-import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem
 
 @ComponentDsl
-class TextBuilder {
-    var content: String = ""
-
-    fun build(): TextDisplay {
-        return TextDisplay(content = content)
-    }
-}
-
-@ComponentDsl
-class MediaGalleryBuilder {
+class MediaGalleryBuilder: MessageComponentBuilder {
     private val items = mutableListOf<MediaGalleryItem>()
-
+    
     fun item(url: String, block: MediaGalleryItemBuilder.() -> Unit = {}) {
         val builder = MediaGalleryItemBuilder(url)
         builder.block()
         items.add(builder.build())
     }
-
-    fun build(): MediaGallery {
+    
+    override fun build(): MediaGallery {
         return MediaGallery(items = items)
     }
 }
@@ -33,10 +25,12 @@ class MediaGalleryBuilder {
 class MediaGalleryItemBuilder(private val url: String) {
     var description: String? = null
     var spoiler: Boolean = false
-
+    
     fun build(): MediaGalleryItem {
         return MediaGalleryItem(
-            media = UnfurledMediaItem(url = url), description = description, spoiler = spoiler
+            media = UnfurledMediaItem(url = url),
+            description = description,
+            spoiler = spoiler
         )
     }
 }

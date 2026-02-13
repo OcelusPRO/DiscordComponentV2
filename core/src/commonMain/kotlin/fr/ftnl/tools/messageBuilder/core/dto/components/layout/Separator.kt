@@ -14,15 +14,21 @@ import kotlin.js.JsName
 @Serializable
 class Separator() : DiscordComponent, ContainerChildComponent, MessageCompatibleComponent {
     
-    @JsName("createFull") constructor(id: Int? = null, divider: Boolean = true, spacing: Int = 1) : this() {
+    @JsName("createFull") constructor(id: Int? = null, divider: Boolean = true, spacing: SpacingType = SpacingType.SMALL) : this() {
         this.id = id
-        this.divider = divider
-        this.spacing = spacing
+        this.setDivider(divider)
+        this.setSpacing(spacing)
+    }
+    
+    @JsName("fromIntSpacing") constructor(id: Int? = null, divider: Boolean = true, spacing: Int = SpacingType.SMALL.value) : this() {
+        this.id = id
+        this.setDivider(divider)
+        this.setSpacing(SpacingType.values().firstOrNull { it.value == spacing } ?: SpacingType.SMALL)
     }
     
     override var id: Int? = null
     var divider: Boolean = true
-    var spacing: Int = 1 // 1 (small) ou 2 (large)
+    var spacing: Int = SpacingType.SMALL.value // 1 (small) ou 2 (large)
     
     override val type: Int = 14
     
@@ -36,8 +42,13 @@ class Separator() : DiscordComponent, ContainerChildComponent, MessageCompatible
         return this
     }
     
-    fun setSpacing(spacing: Int): Separator {
-        this.spacing = spacing
+    fun setSpacing(spacing: SpacingType): Separator {
+        this.spacing = spacing.value
         return this
     }
+}
+
+enum class SpacingType(val value: Int) {
+    SMALL(1),
+    LARGE(2)
 }
