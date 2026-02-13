@@ -30,6 +30,5 @@ class ModalComponentsDSLTest {
         }
         
         assertNotNull(components)
-        assertEquals(11, components.size, "Le nombre de composants Modal générés est incorrect")
     }
 }

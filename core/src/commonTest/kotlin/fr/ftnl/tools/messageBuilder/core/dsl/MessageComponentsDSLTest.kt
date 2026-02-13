@@ -3,7 +3,6 @@ package fr.ftnl.tools.messageBuilder.core.dsl
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.messageComponents
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.SpacingType
-import fr.ftnl.tools.messageBuilder.core.serializers.components.ComponentSerializer
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertNotNull
@@ -37,6 +36,6 @@ class MessageComponentsDSLTest {
         }
         assertNotNull(components)
         
-        components.forEach { println(Json.encodeToString(ComponentSerializer, it)) }
+        println(Json.encodeToString(components))
     }
 }
