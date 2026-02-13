@@ -44,7 +44,12 @@ internal object ComponentSerializer : JsonContentPolymorphicSerializer<DiscordCo
             17 -> Container.serializer()
             18 -> Label.serializer()
             19 -> FileUpload.serializer()
-            else -> UnknownComponent.serializer() // Pour gérer les nouveautés futures sans crash
+            // 20 dont exist
+            21 -> RadioGroup.serializer()
+            22 -> CheckboxGroup.serializer()
+            23 -> Checkbox.serializer()
+            
+            else -> UnknownComponent.serializer()
         }
     }
 }
