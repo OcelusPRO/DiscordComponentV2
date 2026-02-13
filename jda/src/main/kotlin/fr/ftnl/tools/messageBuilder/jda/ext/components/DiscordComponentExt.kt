@@ -6,7 +6,9 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.layout.*
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleList
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleList
 import fr.ftnl.tools.messageBuilder.jda.ext.components.content.fileComponent.toJda
 import fr.ftnl.tools.messageBuilder.jda.ext.components.content.mediaGallery.toJda
 import fr.ftnl.tools.messageBuilder.jda.ext.components.content.textDisplay.toJda
@@ -58,16 +60,17 @@ fun DiscordComponent.toJdaComponents(): Component {
 
 
 fun <T: MessageTopLevelComponent> List<MessageCompatibleComponent>.toJdaMessageComponents(): List<T> = mapNotNull { it.toJdaMessageComponents() as? T }
+fun <T: MessageTopLevelComponent> MessageCompatibleList.toJdaMessageComponents(): List<T> = this.elements.mapNotNull { it.toJdaMessageComponents() as? T }
 fun MessageCompatibleComponent.toJdaMessageComponents(): MessageTopLevelComponent {
     return convertToJdaComponent() as MessageTopLevelComponent
 }
 
 fun <T: ModalTopLevelComponent> List<ModalCompatibleComponent>.toJdaModalComponents(): List<T> = mapNotNull { it.toJdaModalComponents() as? T }
+fun <T: ModalTopLevelComponent> ModalCompatibleList.toJdaModalComponents() = this.elements.mapNotNull { it.toJdaModalComponents() as? T }
 fun ModalCompatibleComponent.toJdaModalComponents(): ModalTopLevelComponent {
     return convertToJdaComponent() as ModalTopLevelComponent
 }
 
-fun <T: JdaLabelChildComponent> List<LabelChildComponent>.toJdaLabelChildComponents(): List<T> = mapNotNull { it.toJdaLabelChildComponent() as? T }
 fun LabelChildComponent.toJdaLabelChildComponent(): JdaLabelChildComponent {
     return convertToJdaComponent() as JdaLabelChildComponent
 }
