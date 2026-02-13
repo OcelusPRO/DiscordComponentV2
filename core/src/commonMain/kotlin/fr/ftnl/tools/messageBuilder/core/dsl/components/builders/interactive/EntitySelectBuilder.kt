@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -9,6 +12,8 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.MentionableS
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.RoleSelect
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectDefaultValue
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.UserSelect
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class UserSelectBuilder(private val customId: String) : BaseEntitySelectBuilder<UserSelect>() {

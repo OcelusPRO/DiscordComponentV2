@@ -1,6 +1,7 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.dsl
-
-
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentBuilder
@@ -18,6 +19,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.Use
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.LabelComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleList
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 interface ModalComponentBuilder: ComponentBuilder {
     override fun build(): ModalCompatibleComponent

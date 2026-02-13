@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -6,6 +9,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content.TextDis
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 
 @ComponentDsl

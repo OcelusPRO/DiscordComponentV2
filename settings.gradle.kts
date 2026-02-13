@@ -9,7 +9,6 @@ plugins {
 }
 
 rootProject.name = "EasyDiscordComponentV2"
-// 2. On inclut les modules et on force leur nom logique immédiatement
 include("core")
 project(":core").name = "${rootProject.name}-core"
 

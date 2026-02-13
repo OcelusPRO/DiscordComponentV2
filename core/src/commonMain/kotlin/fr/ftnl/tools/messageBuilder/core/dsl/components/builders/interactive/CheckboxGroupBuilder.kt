@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -10,6 +13,8 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.CheckboxGrou
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.RadioGroup
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.RadioGroupOption
 import kotlin.Int
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class CheckboxGroupBuilder(val customId: String): ModalComponentBuilder {

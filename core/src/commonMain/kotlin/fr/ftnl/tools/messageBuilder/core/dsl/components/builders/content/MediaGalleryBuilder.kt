@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -5,6 +8,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuil
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGallery
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGalleryItem
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class MediaGalleryBuilder: MessageComponentBuilder {

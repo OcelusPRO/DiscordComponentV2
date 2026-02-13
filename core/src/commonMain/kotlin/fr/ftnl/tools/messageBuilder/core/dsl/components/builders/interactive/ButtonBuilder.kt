@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -5,6 +8,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuil
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Button
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class ButtonBuilder(val customId: String, val style: ButtonStyles): MessageComponentBuilder {

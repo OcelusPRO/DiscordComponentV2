@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -11,6 +14,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.MessageComponentBuil
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.ActionRow
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class ActionRowBuilder : MessageComponentBuilder {

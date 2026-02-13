@@ -1,8 +1,13 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
 import fr.ftnl.tools.messageBuilder.core.dsl.components.dsl.ModalComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.FileUpload
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class FileUploadBuilder(val customId: String): ModalComponentBuilder {

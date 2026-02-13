@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.dsl
 
 
@@ -21,6 +24,8 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.Separato
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleList
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 interface MessageComponentBuilder: ComponentBuilder {
     override fun build(): MessageCompatibleComponent

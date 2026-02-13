@@ -1,3 +1,6 @@
+@file:JsExport
+@file:OptIn(ExperimentalJsExport::class)
+
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -7,6 +10,8 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Button
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Checkbox
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.CheckboxGroup
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.TextInput
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
 @ComponentDsl
 class TextInputBuilder(private val customId: String, private val style: Int): ModalComponentBuilder {
