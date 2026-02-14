@@ -1,9 +1,9 @@
-@file:JsExport @file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.serializers.components
 
-import kotlin.js.JsExport
-import fr.ftnl.tools.messageBuilder.core.dto.components.content.*
+import fr.ftnl.tools.messageBuilder.core.dto.components.content.FileComponent
+import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGallery
+import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
+import fr.ftnl.tools.messageBuilder.core.dto.components.content.Thumbnail
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.*
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.*
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
@@ -27,7 +27,6 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import kotlin.js.ExperimentalJsExport
 
 
 /**

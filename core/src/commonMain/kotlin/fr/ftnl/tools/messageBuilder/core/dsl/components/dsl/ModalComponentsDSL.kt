@@ -1,6 +1,3 @@
-@file:JsExport
-@file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.dsl.components.dsl
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.BaseComponentBuilder

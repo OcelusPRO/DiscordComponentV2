@@ -1,6 +1,3 @@
-@file:JsExport
-@file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ContainerChildComponent
@@ -11,8 +8,6 @@ import fr.ftnl.tools.messageBuilder.core.serializers.ColorHexSerializer
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable

@@ -1,6 +1,3 @@
-@file:JsExport
-@file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout
 
 import fr.ftnl.tools.messageBuilder.core.dsl.components.ComponentDsl
@@ -13,8 +10,6 @@ import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Section
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionChildComponent
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 
 @ComponentDsl
 class SectionBuilder : MessageComponentBuilder {

@@ -1,6 +1,3 @@
-@file:JsExport
-@file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.dto.components.layout
 
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ActionRowChildComponent
@@ -10,8 +7,6 @@ import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.MessageCompatibleComponent
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 import kotlin.js.JsName
 
 @Serializable

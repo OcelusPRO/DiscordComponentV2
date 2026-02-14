@@ -2,21 +2,30 @@
 
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.FileComponent
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGallery
+import fr.ftnl.tools.messageBuilder.core.dto.components.content.MediaGalleryItem
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.TextDisplay
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.Thumbnail
 import fr.ftnl.tools.messageBuilder.core.dto.components.content.UnfurledMediaItem
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Button
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ButtonStyles
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.ChannelSelect
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.Checkbox
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.CheckboxGroup
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.FileUpload
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.MentionableSelect
+import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.RadioGroup
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.RoleSelect
-import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.SelectOption
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.StringSelect
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.TextInput
 import fr.ftnl.tools.messageBuilder.core.dto.components.interactive.UserSelect
-import fr.ftnl.tools.messageBuilder.core.dto.components.layout.*
-import fr.ftnl.tools.messageBuilder.core.dto.components.utils.DiscordEmoji
+import fr.ftnl.tools.messageBuilder.core.dto.components.layout.ActionRow
+import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Container
+import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Label
+import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Section
+import fr.ftnl.tools.messageBuilder.core.dto.components.layout.Separator
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.DiscordComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.LabelChildComponent
+import fr.ftnl.tools.messageBuilder.core.interfaces.components.SectionAccessoryComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -25,135 +34,37 @@ import kotlinx.serialization.json.encodeToDynamic
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
-@JsExport
-class ComponentListBuilder {
-    private val _components = mutableListOf<DiscordComponent>()
-    
-    val components: Array<DiscordComponent>
-        get() = _components.toTypedArray()
-    
-    private fun <T : DiscordComponent> add(component: T): T {
-        _components.add(component)
-        return component
-    }
-    
-    // --- LAYOUT (Imbrication) ---
-    
-    fun container(block: (ComponentListBuilder) -> Unit): Container {
-        val c = Container()
-        val childBuilder = ComponentListBuilder()
-        block(childBuilder)
-        childBuilder.components.forEach { c.addComponent(it) }
-        return add(c)
-    }
-    
-    fun actionRow(block: (ComponentListBuilder) -> Unit): ActionRow {
-        val row = ActionRow()
-        val childBuilder = ComponentListBuilder()
-        block(childBuilder)
-        childBuilder.components.forEach { row.addComponent(it) }
-        return add(row)
-    }
-    
-    fun section(accessory: DiscordComponent, block: (ComponentListBuilder) -> Unit): Section {
-        val s = Section(accessory)
-        val childBuilder = ComponentListBuilder()
-        block(childBuilder)
-        childBuilder.components.forEach { s.addComponent(it) }
-        return add(s)
-    }
-    
-    fun label(text: String, component: DiscordComponent): Label {
-        return add(Label(text, component))
-    }
-    
-    fun separator(): Separator {
-        return add(Separator())
-    }
-    
-    // --- INTERACTIVE ---
-    
-    fun button(style: Int, label: String? = null, customId: String? = null): Button {
-        val b = Button(style).setLabel(label).setCustomId(customId)
-        return add(b)
-    }
-    
-    fun textInput(customId: String, style: Int, label: String? = null): TextInput {
-        val i = TextInput(customId, style)
-        if (label != null) i.setPlaceholder(label)
-        return add(i)
-    }
-    
-    fun stringSelect(customId: String, block: (StringSelect) -> Unit): StringSelect {
-        val s = StringSelect(customId)
-        block(s)
-        return add(s)
-    }
-    
-    fun fileUpload(customId: String): FileUpload {
-        return add(FileUpload(customId))
-    }
-    
-    // Entity Selects
-    fun userSelect(customId: String) = add(UserSelect(customId))
-    fun roleSelect(customId: String) = add(RoleSelect(customId))
-    fun mentionableSelect(customId: String) = add(MentionableSelect(customId))
-    fun channelSelect(customId: String) = add(ChannelSelect(customId))
-    
-    // --- CONTENT ---
-    
-    fun text(content: String): TextDisplay {
-        return add(TextDisplay(content))
-    }
-    
-    fun thumbnail(url: String): Thumbnail {
-        return add(Thumbnail(UnfurledMediaItem(url)))
-    }
-    
-    fun file(url: String, name: String? = null): FileComponent {
-        val f = FileComponent(UnfurledMediaItem(url))
-        if (name != null) f.setName(name)
-        return add(f)
-    }
-    
-    fun mediaGallery(block: (MediaGallery) -> Unit): MediaGallery {
-        val g = MediaGallery()
-        block(g)
-        return add(g)
-    }
-}
-
 private val jsonConfig = Json {
     encodeDefaults = true
     ignoreUnknownKeys = true
 }
 
 @JsExport
-object EasyComponentsBuilder {
-    /**
-     * Point d'entrée principal pour construire une liste de composants en JS.
-     */
-    fun build(block: (ComponentListBuilder) -> Unit): Array<DiscordComponent> {
-        val builder = ComponentListBuilder()
-        block(builder)
-        return builder.components
+object JsDsl {
+    fun message(block: (MessageDsl) -> Unit): Array<dynamic> {
+        val dsl = MessageDsl()
+        block(dsl)
+        return dsl.build().unsafeCast<Array<dynamic>>()
     }
     
-    // Helpers pour les objets qui ne sont pas des composants mais des paramètres
-    fun createOption(label: String, value: String) = SelectOption(label, value)
-    fun createMedia(url: String) = UnfurledMediaItem(url)
-    fun createEmoji() = DiscordEmoji()
+    fun modal(block: (ModalDsl) -> Unit): Array<dynamic> {
+        val dsl = ModalDsl()
+        block(dsl)
+        return dsl.build().unsafeCast<Array<dynamic>>()
+    }
     
+    fun toJsonString(component: dynamic, pretty: Boolean = false): String {
+        return requireComponent(component, "component").toJsonString(pretty)
+    }
     
-    fun toJsonString(component: DiscordComponent, pretty: Boolean = false): String = component.toJsonString(pretty)
-    fun toJsObject(component: DiscordComponent): dynamic = jsonConfig.encodeToDynamic(component)
-    fun toJsArray(component: Array<DiscordComponent>): dynamic = jsonConfig.encodeToDynamic(component)
+    fun toJsonStringArray(components: Array<dynamic>, pretty: Boolean = false): String {
+        val config = if (pretty) Json { prettyPrint = true; encodeDefaults = true; ignoreUnknownKeys = true } else jsonConfig
+        return config.encodeToString(toComponentArray(components))
+    }
     
-    /**
-     * Charge des composants depuis une String JSON ou un objet JS.
-     * @param input {String | Object | Array} L'élément à charger (String ou Object, Array ou Solo)
-     * @returns {DiscordComponent | DiscordComponent[]} Un composant unique ou un tableau de composants.
-     */
+    fun toJsObject(component: dynamic): dynamic = jsonConfig.encodeToDynamic(requireComponent(component, "component"))
+    fun toJsArray(components: Array<dynamic>): dynamic = jsonConfig.encodeToDynamic(toComponentArray(components))
+    
     fun fromJson(input: dynamic): dynamic {
         if (input == null) return null
         
@@ -170,19 +81,399 @@ object EasyComponentsBuilder {
                 else jsonConfig.decodeFromDynamic<DiscordComponent>(input)
             }
         } catch (e: Exception) {
-            console.error("EasyComponentsBuilder.load error:", e.message)
+            console.error("JsDsl.fromJson error:", e.message)
             null
         }
     }
+}
+
+private fun requireComponent(value: dynamic, name: String): DiscordComponent {
+    return value as? DiscordComponent
+        ?: throw IllegalArgumentException("Expected DiscordComponent for $name")
+}
+
+private fun toComponentArray(values: Array<dynamic>): Array<DiscordComponent> {
+    return values.map { requireComponent(it, "components") }.toTypedArray()
+}
+
+@JsExport
+class MessageDsl {
+    private val components = mutableListOf<DiscordComponent>()
     
-    fun fromJsonObject(input: dynamic): DiscordComponent {
-        return fromJson(input) as DiscordComponent
+    internal fun build(): Array<DiscordComponent> = components.toTypedArray()
+    
+    private fun <T : DiscordComponent> add(component: T): T {
+        components.add(component)
+        return component
     }
     
-    /** Pour quand tu sais que c'est une liste */
-    fun fromJsonArray(input: dynamic): Array<DiscordComponent> {
-        return fromJson(input) as Array<DiscordComponent>
+    // Layout
+    fun container(block: (ContainerDsl) -> Unit): Container {
+        val dsl = ContainerDsl()
+        block(dsl)
+        return add(dsl.build())
     }
     
+    fun actionRow(block: (ActionRowDsl) -> Unit): ActionRow {
+        val dsl = ActionRowDsl()
+        block(dsl)
+        return add(dsl.build())
+    }
     
+    fun section(block: (SectionDsl) -> Unit): Section {
+        val dsl = SectionDsl()
+        block(dsl)
+        return add(dsl.build())
+    }
+    
+    fun separator(block: ((Separator) -> Unit)? = null): Separator {
+        val s = Separator()
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    // Content
+    fun text(content: String, block: ((TextDisplay) -> Unit)? = null): TextDisplay {
+        val t = TextDisplay(content)
+        block?.invoke(t)
+        return add(t)
+    }
+    
+    fun file(url: String, block: ((FileComponent) -> Unit)? = null): FileComponent {
+        val f = FileComponent(UnfurledMediaItem(url))
+        block?.invoke(f)
+        return add(f)
+    }
+    
+    fun thumbnail(url: String, block: ((Thumbnail) -> Unit)? = null): Thumbnail {
+        val t = Thumbnail(UnfurledMediaItem(url))
+        block?.invoke(t)
+        return add(t)
+    }
+    
+    fun mediaGallery(block: (MediaGalleryDsl) -> Unit): MediaGallery {
+        val dsl = MediaGalleryDsl()
+        block(dsl)
+        return add(dsl.build())
+    }
+    
+    // Interactive (message-compatible)
+    fun button(customId: String, style: ButtonStyles, block: ((Button) -> Unit)? = null): Button {
+        val b = Button(style).setCustomId(customId)
+        block?.invoke(b)
+        return add(b)
+    }
+    
+    fun stringSelect(customId: String, block: ((StringSelect) -> Unit)? = null): StringSelect {
+        val s = StringSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun userSelect(customId: String, block: ((UserSelect) -> Unit)? = null): UserSelect {
+        val s = UserSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun roleSelect(customId: String, block: ((RoleSelect) -> Unit)? = null): RoleSelect {
+        val s = RoleSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun mentionableSelect(customId: String, block: ((MentionableSelect) -> Unit)? = null): MentionableSelect {
+        val s = MentionableSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun channelSelect(customId: String, block: ((ChannelSelect) -> Unit)? = null): ChannelSelect {
+        val s = ChannelSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+}
+
+@JsExport
+class ContainerDsl {
+    private val container = Container()
+    
+    var color: Int?
+        get() = container.accentColor
+        set(value) { container.accentColor = value }
+    
+    var spoiler: Boolean
+        get() = container.spoiler
+        set(value) { container.spoiler = value }
+    
+    fun actionRow(block: (ActionRowDsl) -> Unit): ActionRow {
+        val dsl = ActionRowDsl()
+        block(dsl)
+        val row = dsl.build()
+        container.addComponent(row)
+        return row
+    }
+    
+    fun section(block: (SectionDsl) -> Unit): Section {
+        val dsl = SectionDsl()
+        block(dsl)
+        val section = dsl.build()
+        container.addComponent(section)
+        return section
+    }
+    
+    fun separator(block: ((Separator) -> Unit)? = null): Separator {
+        val s = Separator()
+        block?.invoke(s)
+        container.addComponent(s)
+        return s
+    }
+    
+    fun text(content: String, block: ((TextDisplay) -> Unit)? = null): TextDisplay {
+        val t = TextDisplay(content)
+        block?.invoke(t)
+        container.addComponent(t)
+        return t
+    }
+    
+    fun mediaGallery(block: (MediaGalleryDsl) -> Unit): MediaGallery {
+        val dsl = MediaGalleryDsl()
+        block(dsl)
+        val g = dsl.build()
+        container.addComponent(g)
+        return g
+    }
+    
+    internal fun build(): Container = container
+}
+
+@JsExport
+class ActionRowDsl {
+    private val row = ActionRow()
+    
+    fun button(customId: String, style: ButtonStyles, block: ((Button) -> Unit)? = null): Button {
+        val b = Button(style).setCustomId(customId)
+        block?.invoke(b)
+        row.addComponent(b)
+        return b
+    }
+    
+    fun stringSelect(customId: String, block: ((StringSelect) -> Unit)? = null): StringSelect {
+        val s = StringSelect(customId)
+        block?.invoke(s)
+        row.addComponent(s)
+        return s
+    }
+    
+    fun userSelect(customId: String, block: ((UserSelect) -> Unit)? = null): UserSelect {
+        val s = UserSelect(customId)
+        block?.invoke(s)
+        row.addComponent(s)
+        return s
+    }
+    
+    fun roleSelect(customId: String, block: ((RoleSelect) -> Unit)? = null): RoleSelect {
+        val s = RoleSelect(customId)
+        block?.invoke(s)
+        row.addComponent(s)
+        return s
+    }
+    
+    fun mentionableSelect(customId: String, block: ((MentionableSelect) -> Unit)? = null): MentionableSelect {
+        val s = MentionableSelect(customId)
+        block?.invoke(s)
+        row.addComponent(s)
+        return s
+    }
+    
+    fun channelSelect(customId: String, block: ((ChannelSelect) -> Unit)? = null): ChannelSelect {
+        val s = ChannelSelect(customId)
+        block?.invoke(s)
+        row.addComponent(s)
+        return s
+    }
+    
+    internal fun build(): ActionRow = row
+}
+
+@JsExport
+class SectionDsl {
+    private val section = Section()
+    
+    fun text(content: String, block: ((TextDisplay) -> Unit)? = null): TextDisplay {
+        val t = TextDisplay(content)
+        block?.invoke(t)
+        section.addComponent(t)
+        return t
+    }
+    
+    fun accessory(component: dynamic) {
+        val accessory = component as? SectionAccessoryComponent
+            ?: throw IllegalArgumentException("Expected SectionAccessoryComponent for accessory")
+        section.setAccessory(accessory)
+    }
+    
+    fun accessoryButton(customId: String, style: ButtonStyles, block: ((Button) -> Unit)? = null): Button {
+        val b = Button(style).setCustomId(customId)
+        block?.invoke(b)
+        section.setAccessory(b)
+        return b
+    }
+    
+    fun accessoryThumbnail(url: String, block: ((Thumbnail) -> Unit)? = null): Thumbnail {
+        val t = Thumbnail(UnfurledMediaItem(url))
+        block?.invoke(t)
+        section.setAccessory(t)
+        return t
+    }
+    
+    internal fun build(): Section = section
+}
+
+@JsExport
+class MediaGalleryDsl {
+    private val gallery = MediaGallery()
+    
+    fun item(url: String, block: ((MediaGalleryItem) -> Unit)? = null): MediaGalleryItem {
+        val item = MediaGalleryItem(UnfurledMediaItem(url))
+        block?.invoke(item)
+        gallery.addItem(item)
+        return item
+    }
+    
+    internal fun build(): MediaGallery = gallery
+}
+
+@JsExport
+class ModalDsl {
+    private val components = mutableListOf<DiscordComponent>()
+    
+    internal fun build(): Array<DiscordComponent> = components.toTypedArray()
+    
+    private fun <T : DiscordComponent> add(component: T): T {
+        components.add(component)
+        return component
+    }
+    
+    fun text(content: String, block: ((TextDisplay) -> Unit)? = null): TextDisplay {
+        val t = TextDisplay(content)
+        block?.invoke(t)
+        return add(t)
+    }
+    
+    fun checkbox(customId: String, block: ((Checkbox) -> Unit)? = null): Checkbox {
+        val c = Checkbox(customId)
+        block?.invoke(c)
+        return add(c)
+    }
+    
+    fun checkboxGroup(customId: String, block: ((CheckboxGroup) -> Unit)? = null): CheckboxGroup {
+        val g = CheckboxGroup(customId)
+        block?.invoke(g)
+        return add(g)
+    }
+    
+    fun radioGroup(customId: String, block: ((RadioGroup) -> Unit)? = null): RadioGroup {
+        val g = RadioGroup(customId)
+        block?.invoke(g)
+        return add(g)
+    }
+    
+    fun textInput(customId: String, style: Int, block: ((TextInput) -> Unit)? = null): TextInput {
+        val i = TextInput(customId, style)
+        block?.invoke(i)
+        return add(i)
+    }
+    
+    fun fileUpload(customId: String, block: ((FileUpload) -> Unit)? = null): FileUpload {
+        val f = FileUpload(customId)
+        block?.invoke(f)
+        return add(f)
+    }
+    
+    fun stringSelect(customId: String, block: ((StringSelect) -> Unit)? = null): StringSelect {
+        val s = StringSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun userSelect(customId: String, block: ((UserSelect) -> Unit)? = null): UserSelect {
+        val s = UserSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun roleSelect(customId: String, block: ((RoleSelect) -> Unit)? = null): RoleSelect {
+        val s = RoleSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun mentionableSelect(customId: String, block: ((MentionableSelect) -> Unit)? = null): MentionableSelect {
+        val s = MentionableSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun channelSelect(customId: String, block: ((ChannelSelect) -> Unit)? = null): ChannelSelect {
+        val s = ChannelSelect(customId)
+        block?.invoke(s)
+        return add(s)
+    }
+    
+    fun label(text: String, block: (LabelDsl) -> Unit): Label {
+        val dsl = LabelDsl(text)
+        block(dsl)
+        return add(dsl.build())
+    }
+}
+
+@JsExport
+class LabelDsl(private val labelText: String) {
+    var description: String? = null
+    private var component: LabelChildComponent? = null
+    
+    private fun <T : LabelChildComponent> setComponent(component: T, block: ((T) -> Unit)?): T {
+        block?.invoke(component)
+        this.component = component
+        return component
+    }
+    
+    fun checkbox(customId: String, block: ((Checkbox) -> Unit)? = null): Checkbox =
+        setComponent(Checkbox(customId), block)
+    
+    fun checkboxGroup(customId: String, block: ((CheckboxGroup) -> Unit)? = null): CheckboxGroup =
+        setComponent(CheckboxGroup(customId), block)
+    
+    fun radioGroup(customId: String, block: ((RadioGroup) -> Unit)? = null): RadioGroup =
+        setComponent(RadioGroup(customId), block)
+    
+    fun textInput(customId: String, style: Int, block: ((TextInput) -> Unit)? = null): TextInput =
+        setComponent(TextInput(customId, style), block)
+    
+    fun fileUpload(customId: String, block: ((FileUpload) -> Unit)? = null): FileUpload =
+        setComponent(FileUpload(customId), block)
+    
+    fun stringSelect(customId: String, block: ((StringSelect) -> Unit)? = null): StringSelect =
+        setComponent(StringSelect(customId), block)
+    
+    fun userSelect(customId: String, block: ((UserSelect) -> Unit)? = null): UserSelect =
+        setComponent(UserSelect(customId), block)
+    
+    fun roleSelect(customId: String, block: ((RoleSelect) -> Unit)? = null): RoleSelect =
+        setComponent(RoleSelect(customId), block)
+    
+    fun mentionableSelect(customId: String, block: ((MentionableSelect) -> Unit)? = null): MentionableSelect =
+        setComponent(MentionableSelect(customId), block)
+    
+    fun channelSelect(customId: String, block: ((ChannelSelect) -> Unit)? = null): ChannelSelect =
+        setComponent(ChannelSelect(customId), block)
+    
+    internal fun build(): Label {
+        val child = component ?: throw IllegalStateException("Label component is required")
+        val label = Label(labelText, child)
+        label.description = description
+        return label
+    }
 }

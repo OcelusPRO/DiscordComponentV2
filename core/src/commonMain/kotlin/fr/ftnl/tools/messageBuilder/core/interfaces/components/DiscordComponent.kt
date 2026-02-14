@@ -1,5 +1,3 @@
-@file:JsExport @file:OptIn(ExperimentalJsExport::class)
-
 package fr.ftnl.tools.messageBuilder.core.interfaces.components
 
 import fr.ftnl.tools.messageBuilder.core.serializers.components.ActionRowChildListSerializer
@@ -19,8 +17,6 @@ import fr.ftnl.tools.messageBuilder.core.serializers.components.SectionChildSeri
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 import kotlin.jvm.JvmInline
 
 /**
