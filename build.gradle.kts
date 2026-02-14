@@ -267,17 +267,7 @@ val generateGlobalPackageSwift = tasks.register("generateGlobalPackageSwift") {
 
 tasks.register("publishToSwift") {
     group = "publishing"
-    
     dependsOn(generateGlobalPackageSwift)
-    subprojects {
-        val sub = this
-        sub.afterEvaluate {
-            val collectTask = sub.tasks.findByName("collectSwiftInfo")
-            if (collectTask != null) {
-                generateGlobalPackageSwift.get().dependsOn(collectTask)
-            }
-        }
-    }
 }
 
 
@@ -291,6 +281,8 @@ tasks.register("pushToSwiftRepo") {
     val execOps = project.serviceOf<ExecOperations>()
     val tempDir = layout.buildDirectory.dir("swift-repo-temp").get().asFile
     val generatedPackageFile = layout.buildDirectory.file("dist/swift/Package.swift").get().asFile
+
+    onlyIf { generatedPackageFile.exists() }
     
     doLast {
         if (tempDir.exists()) tempDir.deleteRecursively()
@@ -305,7 +297,10 @@ tasks.register("pushToSwiftRepo") {
         if (generatedPackageFile.exists()) {
             generatedPackageFile.copyTo(File(tempDir, "Package.swift"), overwrite = true)
             println("Package.swift mis à jour.")
-        } else error("Le fichier généré Package.swift est introuvable !")
+        } else {
+            println("Aucun Package.swift généré, skip push Swift.")
+            return@doLast
+        }
         
         execOps.exec {
             workingDir = tempDir
@@ -365,10 +360,10 @@ tasks.register("publishAll") {
     description = "Release complète : Maven, NPM, et Repo Swift dédié."
     
     dependsOn(npmPublish, mavenClose, tasks.named("pushToSwiftRepo"))
-    
-    tasks.named("pushToSwiftRepo").configure {
-        mustRunAfter(tasks.named("publishToSwift"))
-    }
+}
+
+tasks.named("pushToSwiftRepo").configure {
+    mustRunAfter(tasks.named("publishToSwift"))
 }
 
 subprojects {
@@ -392,6 +387,11 @@ fun Project.configureSwiftPublishing() {
         val kmpExtension = extensions.getByType<KotlinMultiplatformExtension>()
         
         afterEvaluate {
+            val isAppleHost = System.getProperty("os.name").lowercase().contains("mac")
+            if (!isAppleHost) {
+                return@afterEvaluate
+            }
+            
             val appleTargets = kmpExtension.targets
                 .filterIsInstance<KotlinNativeTarget>()
                 .filter { it.konanTarget.family.isAppleFamily }
@@ -451,6 +451,10 @@ fun Project.configureSwiftPublishing() {
                             }
                         }
                     }
+                }
+                
+                rootProject.tasks.named("generateGlobalPackageSwift").configure {
+                    dependsOn(collectTask)
                 }
             }
         }
