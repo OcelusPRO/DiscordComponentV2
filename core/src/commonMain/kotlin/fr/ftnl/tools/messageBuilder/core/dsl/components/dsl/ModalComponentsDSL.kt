@@ -10,6 +10,7 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.content.TextDis
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.ChannelSelectBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.CheckboxBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.CheckboxGroupBuilder
+import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.FileUploadBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.MentionableSelectBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.RadioGroupBuilder
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.RoleSelectBuilder
@@ -19,8 +20,6 @@ import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.interactive.Use
 import fr.ftnl.tools.messageBuilder.core.dsl.components.builders.layout.LabelComponentBuilder
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleComponent
 import fr.ftnl.tools.messageBuilder.core.interfaces.components.ModalCompatibleList
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 
 interface ModalComponentBuilder: ComponentBuilder {
     override fun build(): ModalCompatibleComponent
@@ -54,6 +53,11 @@ class ModalComponentsDSL: BaseComponentBuilder() {
     }
     fun textInput(customId: String, style: Int, block: TextInputBuilder.() -> Unit) {
         val builder = TextInputBuilder(customId, style)
+        builder.block()
+        add(builder)
+    }
+    fun fileUpload(customId: String, block: FileUploadBuilder.() -> Unit) {
+        val builder = FileUploadBuilder(customId)
         builder.block()
         add(builder)
     }

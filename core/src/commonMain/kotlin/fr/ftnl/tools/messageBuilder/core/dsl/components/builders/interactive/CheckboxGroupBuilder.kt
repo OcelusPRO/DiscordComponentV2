@@ -24,6 +24,9 @@ class CheckboxGroupBuilder(val customId: String): ModalComponentBuilder {
     var minValues: Int = 1
     var maxValues: Int = 10
     
+    fun option(value: String, label: String, description: String? = null, default: Boolean = false) {
+        checkboxElement.add(CheckboxGroupOption(value = value, label = label, description = description, default = default))
+    }
     
     override fun build(): CheckboxGroup {
         require(checkboxElement.size in 1..10) { "Radio group can't have less than 1 or more than 10 options" }

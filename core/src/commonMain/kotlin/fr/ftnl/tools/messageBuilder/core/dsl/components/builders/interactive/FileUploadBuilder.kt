@@ -19,10 +19,10 @@ class FileUploadBuilder(val customId: String): ModalComponentBuilder {
     
     override fun build(): FileUpload {
         return FileUpload(
-            customId=customId,
-            minValues = 1,
-            maxValues = 10,
-            required= true
+            customId = customId,
+            minValues = minValues,
+            maxValues = maxValues,
+            required = required
         )
         
     }

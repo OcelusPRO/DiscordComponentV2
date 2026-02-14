@@ -20,6 +20,10 @@ class RadioGroupBuilder(val customId: String): ModalComponentBuilder {
     private val radioElements = mutableListOf<RadioGroupOption>()
     var required: Boolean = true
     
+    fun option(value: String, label: String, description: String? = null, default: Boolean = false) {
+        radioElements.add(RadioGroupOption(value = value, label = label, description = description, default = default))
+    }
+    
     override fun build(): RadioGroup {
         require(radioElements.size in 2..10) { "Radio group can't have less than 2 or more than 10 options" }
         
