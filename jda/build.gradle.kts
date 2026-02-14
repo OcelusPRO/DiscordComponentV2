@@ -7,6 +7,8 @@ dependencies {
     compileOnly(libs.jda)
     compileOnly(project(":${rootProject.name}-core"))
     testImplementation(kotlin("test"))
+    testImplementation(libs.jda)
+    testImplementation(project(":${rootProject.name}-core"))
 }
 
 extensions.configure<PublishingExtension> {
